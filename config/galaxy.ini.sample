@@ -29,11 +29,13 @@ use = egg:Paste#http
 
 # The port on which to listen.
 #port = 8080
+port = 8081
 
 # The address on which to listen.  By default, only listen to localhost (Galaxy
 # will not be accessible over the network).  Use '0.0.0.0' to listen on all
 # available network interfaces.
 #host = 127.0.0.1
+host = 129.105.88.58
 
 # Use a threadpool for the web server instead of creating a thread for each
 # request.
@@ -134,15 +136,18 @@ paste.app_factory = galaxy.web.buildapp:app_factory
 
 # Dataset files are stored in this directory.
 #file_path = database/files
+file_path = /share/PCEitAdmin/Galaxy/files_dev
 
 # Temporary files are stored in this directory.
 #new_file_path = database/tmp
+new_file_path = /tmp
 
 # Tool config files, defines what tools are available in Galaxy.
 # Tools can be locally developed or installed from Galaxy tool sheds.
 # (config/tool_conf.xml.sample will be used if left unset and
 # config/tool_conf.xml does not exist).
 #tool_config_file = config/tool_conf.xml,config/shed_tool_conf.xml
+tool_config_file = ./config/tool_conf.xml.main,config/shed_tool_conf.xml
 
 # Enable / disable checking if any tools defined in the above non-shed
 # tool_config_files (i.e., tool_conf.xml) have been migrated from the Galaxy
@@ -167,7 +172,7 @@ paste.app_factory = galaxy.web.buildapp:app_factory
 # Default path to the directory containing the tools defined in tool_conf.xml.
 # Other tool config files must include the tool_path as an attribute in the
 # <toolbox> tag.
-#tool_path = tools
+tool_path = tools
 
 # -- Tool dependencies
 
@@ -179,6 +184,7 @@ paste.app_factory = galaxy.web.buildapp:app_factory
 # If this option is set to none or an invalid path, installing tools with dependencies
 # from the Tool Shed will fail.
 #tool_dependency_dir = database/dependencies
+tool_dependency_dir =  ../tool_dependencies
 
 # The dependency resolvers config file specifies an ordering and options for how
 # Galaxy resolves tool dependencies (requirement tags in Tool XML). The default
@@ -350,6 +356,7 @@ paste.app_factory = galaxy.web.buildapp:app_factory
 # This option defines in what parent directory those directories will be
 # created.
 #job_working_directory = database/jobs_directory
+job_working_directory = /share/PCEitAdmin/Galaxy/working
 
 # If using a cluster, Galaxy will write job scripts and stdout/stderr to this
 # directory.
@@ -415,6 +422,7 @@ paste.app_factory = galaxy.web.buildapp:app_factory
 # define here (host:port).
 # Galaxy will automatically try STARTTLS but will continue upon failure.
 #smtp_server = None
+smtp_server = localhost
 
 # If your SMTP server requires a username and password, you can provide them
 # here (password in cleartext here, but if your server supports STARTTLS it
@@ -759,6 +767,7 @@ nglims_config_file = tool-data/nglims.yaml
 # special tools that require unaltered output.  WARNING: disabling this does
 # make the Galaxy instance susceptible to XSS attacks initiated by your users.
 #sanitize_all_html = True
+sanitize_all_html = False
 
 # Whitelist sanitization file.
 # Datasets created by tools listed in this file are trusted and will not have
@@ -845,6 +854,7 @@ use_interactive = True
 # Add an option to the library upload form which allows administrators to
 # upload a directory of files.
 #library_import_dir = None
+library_import_dir = /share/krgData2/Projects
 
 # Add an option to the library upload form which allows authorized
 # non-administrators to upload a directory of files.  The configured directory
@@ -852,6 +862,8 @@ use_interactive = True
 # login ( email ).  The non-admin user is restricted to uploading files or
 # sub-directories of files contained in their directory.
 #user_library_import_dir = None
+user_library_import_dir = /share/krgData2/Projects
+
 
 # Add an option to the admin library upload tool allowing admins to paste
 # filesystem paths to files and directories in a box, and these paths will be
@@ -859,6 +871,7 @@ use_interactive = True
 # implication that this will give Galaxy Admins access to anything your Galaxy
 # user has access to.
 #allow_library_path_paste = False
+allow_library_path_paste = True
 
 # Users may choose to download multiple files from a library in an archive.  By
 # default, Galaxy allows users to select from a few different archive formats
@@ -918,6 +931,7 @@ use_interactive = True
 # Enabling remote user disables regular logins.  For more information, see:
 #   https://wiki.galaxyproject.org/Admin/Config/ApacheProxy
 #use_remote_user = False
+use_remote_user = True
 
 # If use_remote_user is enabled and your external authentication
 # method just returns bare usernames, set a default mail domain to be appended
@@ -961,6 +975,7 @@ use_interactive = True
 # libraries, and more.  For more information, see:
 #   https://wiki.galaxyproject.org/Admin/Interface
 #admin_users = None
+admin_users = jgreer96@gmail.com, joseph.greer@northwestern.edu, richard.leduc@northwestern.edu, ryan.fellers@northwestern.edu, paul-thomas@northwestern.edu, b-early@northwestern.edu, alexandra.vannispen@northwestern.edu
 
 # Force everyone to log in (disable anonymous access).
 #require_login = False
@@ -1083,6 +1098,7 @@ use_interactive = True
 # This should point to a directory containing subdirectories matching users'
 # identifier (defaults to e-mail), where Galaxy will look for files.
 #ftp_upload_dir = None
+ftp_upload_site = galaxy.kelleher.northwestern.edu
 
 # This should be the hostname of your FTP server, which will be provided to
 # users in the help text.
@@ -1221,6 +1237,7 @@ use_interactive = True
 # greater possibility that jobs will be dispatched past the configured limits
 # if running many handlers.
 #cache_user_job_count = False
+cache_user_job_count = True
 
 # -- ToolBox filtering
 

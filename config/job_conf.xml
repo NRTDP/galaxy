@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<job_conf>
+        <plugins>
+	    <plugin id="local" type="runner" load="galaxy.jobs.runners.local:LocalJobRunner" workers="2"/>
+            <plugin id="pulsar_rest" type="runner" load="galaxy.jobs.runners.pulsar:PulsarRESTJobRunner"/>
+            <plugin id="pulsar_quest" type="runner" load="galaxy.jobs.runners.pulsar:PulsarRESTJobRunner" workers="16"/>
+            <plugin id="pulsar_qgalaxy01" type="runner" load="galaxy.jobs.runners.pulsar:PulsarRESTJobRunner" workers="16"/>
+            <plugin id="pulsar_crawler" type="runner" load="galaxy.jobs.runners.pulsar:PulsarRESTJobRunner"/>
+            <plugin id="pulsar_pce_galaxy_crawler" type="runner" load="galaxy.jobs.runners.pulsar:PulsarRESTJobRunner"/>
+	</plugins>
+	<handlers>
+		<handler id="main"/>
+	</handlers>
+	<destinations default="local">
+		<destination id = "local" runner="local"/>
+   		<destination id="pulsar_pce_galaxy_crawler" runner="pulsar_pce_galaxy_crawler">
+                    <param id="url">http://pce-galaxy-win.kelleher.northwestern.edu:8914</param>
+                </destination>            
+   		<destination id="pulsar_crawler" runner="pulsar_crawler">
+                    <param id="url">http://krg-crawler.kelleher.northwestern.edu:8914</param>
+                </destination>            
+   		<destination id="pulsar_quest" runner="pulsar_quest">
+                    <param id="url">http://quser10.ci.northwestern.edu:8914</param>
+                </destination>            
+   		<destination id="pulsar_qgalaxy01" runner="pulsar_qgalaxy01">
+                    <param id="url">http://qgalaxy01.ci.northwestern.edu:8914</param>
+                </destination>            
+
+   		<destination id="pulsar_rest" runner="pulsar_rest">
+
+                <destination id="sge_default" runner="drmaa"/>
+                <destination id="big_jobs" runner="drmaa">
+                     <param id="nativeSpecification">-P bignodes -R y -pe threads 8</param>
+                </destination>            
+            <!-- Uncomment the following statement to disable file staging (e.g.
+                 if there is a shared file system between Galaxy and the Pulsar
+                 server). Alternatively action can be set to 'copy' - to replace
+                 http transfers with file system copies, 'remote_transfer' to cause
+                 the Pulsar to initiate HTTP transfers instead of Galaxy, or
+                 'remote_copy' to cause Pulsar to initiate file system copies.
+                 If setting this to 'remote_transfer' be sure to specify a
+                 'galaxy_url' attribute on the runner plugin above. -->
+            <!-- <param id="default_file_action">none</param> -->
+            <!-- The above option is just the default, the transfer behavior
+                 none|copy|http can be configured on a per path basis via the
+                 following file. See Pulsar documentation for more details and
+                 examples.
+            -->
+            <!-- <param id="file_action_config">file_actions.yaml</param> -->
+            <!-- The non-legacy Pulsar runners will attempt to resolve Galaxy
+                 dependencies remotely - to enable this set a tool_dependency_dir
+                 in Pulsar's configuration (can work with all the same dependency
+                 resolutions mechanisms as Galaxy - tool Shed installs, Galaxy
+                 packages, etc...). To disable this behavior, set the follow parameter
+                 to none. To generate the dependency resolution command locally
+                 set the following parameter local.
+            -->
+            <!-- <param id="dependency_resolution">none</params> -->
+            <!-- Uncomment following option to enable setting metadata on remote
+                 Pulsar server. The 'use_remote_datatypes' option is available for
+                 determining whether to use remotely configured datatypes or local
+                 ones (both alternatives are a little brittle). -->
+            <!-- <param id="remote_metadata">true</param> -->
+            <!-- <param id="use_remote_datatypes">false</param> -->
+            <!-- <param id="remote_property_galaxy_home">/path/to/remote/galaxy-central</param> -->
+            <!-- If remote Pulsar server is configured to run jobs as the real user,
+                 uncomment the following line to pass the current Galaxy user
+                 along. -->
+            <!-- <param id="submit_user">$__user_name__</param> -->
+            <!-- Various other submission parameters can be passed along to the Pulsar
+                 whose use will depend on the remote Pulsar's configured job manager.
+                 For instance:
+            -->
+            <!-- <param id="submit_native_specification">-P bignodes -R y -pe threads 8</param> -->
+            <!-- Disable parameter rewriting and rewrite generated commands
+                 instead. This may be required if remote host is Windows machine
+                 but probably not otherwise.
+            -->
+            <!-- <param id="rewrite_parameters">false</params> -->
+        </destination>
+
+	</destinations>
+	<tools>
+	<tool id="collection_creates_zip" destination="pulsar_crawler" />
+	<tool id="collection_creates_list" destination="pulsar_crawler" />
+	<tool id="convert_raw_to_mzml" destination="pulsar_crawler" />
+
+<!--	<tool id="win_generate_sas_report" destination="pulsar_pce_galaxy_crawler" />-->
+	<tool id="pce_galaxy_sic_norm" destination="pulsar_pce_galaxy_crawler" />
+	<tool id="pce_galaxy_convert_raw_to_mzml" destination="pulsar_pce_galaxy_crawler" />
+
+
+
+<!--	<tool id="quest_zip_to_txt" destination="pulsar_quest" /> -->
+<!--	<tool id="quest_input_to_zip" destination="pulsar_quest" /> -->
+<!--	<tool id="zip_to_pds" destination="pulsar_quest" /> -->
+<!--	<tool id="hpc_search" destination="pulsar_quest" /> -->
+<!--	<tool id="hpc_create_single_db" destination="pulsar_quest" /> -->
+<!--	<tool id="hpc_standard_search" destination="pulsar_quest" /> -->
+<!--	<tool id="hpc_advanced_search" destination="pulsar_quest" /> -->
+<!--	<tool id="collection_creates_single" destination="pulsar_quest" /> -->
+<!--	<tool id="Quest Prepare Files" destination="pulsar_quest" /> -->
+<!--	<tool id="Quest HPC Search" destination="pulsar_quest" /> -->
+<!--	<tool id="generate_proteoform_report" destination="pulsar_quest" /> -->
+<!--	<tool id="generate_hpc_reports" destination="pulsar_quest" /> -->
+<!--	<tool id="generate_protein_hits_report" destination="pulsar_quest" /> -->
+<!--	<tool id="generate_search_report" destination="pulsar_quest" /> -->
+
+        <tool id="hpc_create_tdreport_v_1_1" destination="pulsar_qgalaxy01" />
+
+	<tool id="hpc_shortreed" destination="pulsar_qgalaxy01" />
+
+	<tool id="convert_raw_to_mzml" destination="pulsar_crawler" />
+	<tool id="quest_zip_to_txt" destination="pulsar_qgalaxy01" />
+	<tool id="quest_input_to_zip" destination="pulsar_qgalaxy01" />
+	<tool id="zip_to_pds" destination="pulsar_qgalaxy01" />
+	<tool id="hpc_search" destination="pulsar_qgalaxy01" />
+	<tool id="hpc_create_single_db" destination="pulsar_qgalaxy01" />
+	<tool id="hpc_standard_search" destination="pulsar_qgalaxy01" />
+	<tool id="hpc_advanced_search" destination="pulsar_qgalaxy01" />
+	<tool id="collection_creates_single" destination="pulsar_qgalaxy01" />
+	<tool id="Quest Prepare Files" destination="pulsar_qgalaxy01" />
+	<tool id="Quest HPC Search" destination="pulsar_qgalaxy01" />
+	<tool id="generate_proteoform_report" destination="pulsar_qgalaxy01" />
+	<tool id="generate_hpc_reports" destination="pulsar_qgalaxy01" />
+	<tool id="generate_protein_hits_report" destination="pulsar_qgalaxy01" />
+	<tool id="generate_search_report" destination="pulsar_qgalaxy01" />
+	<tool id="hpc_caroline_create_tdreport" destination="pulsar_qgalaxy01" />
+
+
+        <tool id="hpc_advanced_create_tdreport_v_1_1" destination="pulsar_qgalaxy01" />
+
+
+	<tool id="hpc_inchlib_heatmap" destination="pulsar_qgalaxy01" />
+
+	<tool id="hpc_use_max_fragment_mass_create_tdreport" destination="pulsar_qgalaxy01" />
+	<tool id="hpc_use_average_fragment_mass_create_tdreport" destination="pulsar_qgalaxy01" />
+
+	<tool id="dataset_metadata" destination="pulsar_qgalaxy01" />
+	<tool id="hpc_create_tdreport" destination="pulsar_qgalaxy01" />
+	<tool id="hpc_create_tdreport_with_parameters" destination="pulsar_qgalaxy01" />
+<!--	<tool id="hpc_load_sas" destination="pulsar_qgalaxy01" />-->
+	<tool id="Quest Pulsar Test" destination="pulsar_qgalaxy01" />
+	<tool id="Quest DRMAA Test" destination="pulsar_qgalaxy01" />
+
+	<!--<tool id="Quest Multiple Jobs Test" destination="local" />-->
+	<tool id="Quest Multiple Jobs Test" destination="pulsar_quest" /> -->
+
+
+	<tool id="multi_output_configured" destination="pulsar_rest" />
+	<tool id="Generate Quest Search Report" destination="pulsar_rest" />
+	<tool id="Quest Merge" destination="pulsar_rest" />
+	<tool id="convertRawToMzML" destination="pulsar_rest" />
+	<tool id="batchConvertRawToMzML" destination="pulsar_rest" />
+	<tool id="batchPrepareMzML" destination="pulsar_rest" />
+	<tool id="batchSearch" destination="pulsar_rest" />
+	<tool id="batchMerge" destination="pulsar_rest" />
+	<tool id="batchReport" destination="pulsar_rest" />
+	<tool id="DRMAATest" destination="pulsar_rest" />
+	<!-- <tool id="Show beginning1" destination="pulsar_rest" />-->
+	<tool id="Upload File" destination="pulsar_rest" />
+	<tool id="Show beginning2" destination="pulsar_rest" />
+	<tool id="Echo" destination="pulsar_rest" />
+	<tool id="Echo1" destination="pulsar_rest" />
+	<tool id="cRAWl and Search" destination="pulsar_rest" />
+
+	</tools>
+</job_conf>

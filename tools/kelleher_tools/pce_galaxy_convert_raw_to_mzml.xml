@@ -1,0 +1,85 @@
+<tool id="pce_galaxy_convert_raw_to_mzml" name="Convert Raw Files to mzML Files" version="1.0.1">
+  <description>Convert dataset collection of raw files into mzML zip file</description>
+
+## <command>##
+##for $key in $list_output.keys()##
+## C:\Python27\python collection_creates_list.py
+ ## C:\Python27\python "S:\Kelleher Data\Greer.Joseph\GalaxyToolProjects\GalaxyConvertRawToMzML\dsc.py" $input1 $list_output "$list_output.keys()";##
+##  C:\Python27\python "S:\Kelleher Data\Greer.Joseph\GalaxyToolProjects\GalaxyConvertRawToMzML\dsc.py" "$input1[$key]" "$list_output[$key]"##
+  C:\Python27\python "C:\Users\Administrator\pulsar\scripts\dsc.py" "$input1" $list_output $__new_file_path__ $__user_email__ "$input2" "$env_mode"
+##  C:\Python27\python "C:\Users\Administrator\pulsar\scripts\dsc.py" "$input1" $list_output $__new_file_path__ $__user_email__##
+
+
+##  C:\Python27\python "C:\Users\Administrator\pulsar\scripts\crawler_convert.py" "$input1" $list_output $__new_file_path__ $__user_email__ "$input2"##
+##    python "/projects/d20657/shared/HPC_Galaxy/dsc.py" "$input1[$key]" > "$list_output[$key]";##
+ ##end for##
+ 
+
+##  </command>##
+  <inputs>
+    <param name="input1" type="data_collection" collection_type="list" label="Input Dataset List" help="Input collection..."/>
+    <param format="txt" name="input2" type="data" multiple="true"  label="Workflow Job Id" />
+    <param name="env_mode" type="select" label="Code Set">
+      <option value="standard_1_0">Standard 1.0</option>
+      <option value="nrtdp_maglab_1_0">NRTDP MagLab 1.0</option>
+<!--      <option value="prod">Production</option>
+      <option value="dev">Development</option>
+      <option value="qa">QA</option>-->
+    </param>
+  </inputs>
+  <outputs>
+    <data name="list_output" type="data" label="mzML ZIP file">
+    </data>
+  </outputs>
+  <tests>
+    <test>
+      <param name="input1">
+        <collection type="list">
+          <element name="l11" value="simple_line.txt" />
+          <element name="l12" value="simple_line.txt" />
+        </collection>
+      </param>
+      <output_collection name="list_output" type="list">
+        <element name="l11">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l11\n$" />
+          </assert_contents>
+        </element>
+        <element name="l12">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l12\n$" />
+          </assert_contents>
+        </element>
+      </output_collection>
+    </test>
+  </tests>
+  <help>
+
+**What it does**
+
+Converts a dataset list of raw files into a zip file containing mzML files
+
+**Input**
+
+Dataset list of raw files
+Workflow job id
+
+**Output**
+
+ZIP file containing mzML files
+
+**Help**
+
+- Please review the NRTPD TDPortal SOP for additional information `here`_
+
+.. _here: http://galaxy-dev.kelleher.northwestern.edu/static/Galaxy_Quick_Start_Guide_20160224_v3_jbg.pdf
+
+
+Please feel free to email the development team if additional assistance is required: nrtdp-help@northwestern.edu
+
+  </help>
+
+
+</tool>
+
+

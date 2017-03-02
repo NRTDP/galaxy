@@ -1,0 +1,111 @@
+<tool id="hpc_advanced_create_tdreport_v_1_0" name="Advanced Convert Search" version="1.0.1">
+<description>Search converted raw files on Quest with database created from input file</description>
+<!--<command interpreter="sh">hpc_create_tdreport.sh $input1 "$organism" '$regex' $tdreport_outfile $quant_sas_output $__new_file_path__ $__user_id__  $__user_email__ $input2 "$env_mode" "$res_mode" "$frag_type"</command>-->
+<command interpreter="python">hpc_advanced_create_tdreport_v_1_0.py $input1 "$organism" '$regex' $tdreport_outfile $quant_sas_output $__new_file_path__ $__user_id__  $__user_email__ $input2 "$env_mode" "$res_mode" "$frag_type"</command>
+  <inputs>
+    <param name="input1" type="data" label="mzML zip file" />
+    <param name="input2" type="data_collection" collection_type="list" label="Input" help="Input collection..."/>
+    <param format="txt" name="input2" type="data" multiple="true"  label="Job Id" />
+    <param name="organism" type="data" multiple="true" label="Database Flatfile" />
+
+<!--    <param name="organism" type="select" label="Organism">
+      <option value="taxon9913_reviewed.db">Bos taurus (Bovine) : (Taxon 9913 - May 2016)</option>
+      <option value="taxon536056_reviewed.db">Escherichia coli : (Taxon 536056 - May 2016)</option>
+      <option value="taxon9606_reviewed.db">Homo sapiens (Human) : (Taxon 9606 - April 2016)</option>
+      <option value="taxon10090_reviewed.db">Mus musculus (Mouse) : (Taxon 10090 - May 2016)</option>
+      <option value="taxon208964_reviewed_2016_07.db">Pseudomonas Aeruginosa : (Taxon 208964 - July 2016)</option>
+      <option value="taxon10116_reviewed.db">Rattus norvegicus (Rat) : (Taxon 10116 - May 2016)</option>
+      <option value="taxon559292_reviewed.db">Saccharomyces cerevisiae (Baker's yeast) : (Taxon 559292 - May 2016)</option>
+      <option value="PierceIntactProteinStandardMix.db">Pierce Intact Protein Standard Mix : (September 2016)</option>
+      <option value="TopDownStandards.db">Top Down Standards</option>
+    </param>-->
+    <param name="regex" type="text" value="" label="Regex (Only Required for Quant Searches)"/>
+    <param name="res_mode" type="select" label="Precursor Resolution">
+      <option value="hi_res_default_search_tree.pds">High Resolution</option>
+      <option value="med_res_default_search_tree.pds">Medium Resolution</option>
+      <option value="low_res_default_search_tree.pds">Low Resolution</option>
+      <option value="low_1.pds">Low Resolution Test 1</option>
+      <option value="low_2.pds">Low Resolution Test 2</option>
+      <option value="low_3.pds">Low Resolution Test 3</option>
+      <option value="low_4.pds">Low Resolution Test 4</option>
+      <option value="low_5.pds">Low Resolution Test 5</option>
+    </param>
+    <param name="frag_type" type="select" label="Fragmentation Type">
+      <option value="auto">Auto</option>
+      <option value="hi_res_ethcd_default_search_tree.pds">EThcD</option>
+      <option value="hi_res_uvpd_default_search_tree.pds">UVPD</option>
+    </param>
+    <param name="env_mode" type="select" label="Code Set">
+      <option value="standard_1_0">Standard 1.0</option>
+      <option value="nrtdp_maglab_1_0">NRTDP MagLab 1.0</option>
+<!--      <option value="prod">Production</option>
+     <option value="dev">Development</option>
+      <option value="qa">QA</option>-->
+    </param>
+
+  </inputs>
+    <outputs>
+        <data format="tdReport" name="tdreport_outfile" type="data" label="Generated Top Down Report"/>
+        <data format="csv" name="quant_sas_output" type="data" label="Quant SAS Input"/>
+    </outputs>
+  <tests>
+    <test>
+      <param name="input1">
+        <collection type="list">
+          <element name="l11" value="simple_line.txt" />
+          <element name="l12" value="simple_line.txt" />
+        </collection>
+      </param>
+      <output_collection name="list_output" type="list">
+        <element name="l11">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l11\n$" />
+          </assert_contents>
+        </element>
+        <element name="l12">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l12\n$" />
+          </assert_contents>
+        </element>
+      </output_collection>
+    </test>
+  </tests>
+
+<help>
+**What it does**
+
+Searches a zip file containing mzML files and returns a tdReport
+
+**Input**
+
+Zip file contiaing mzML files
+Workflow id
+Organism
+Regex (if performing quant)
+Resolution (high, medium or low)
+Build version (Production is default)
+
+**Output**
+
+tdReport viewable in the TDViewer http://topdownviewer.northwestern.edu/
+Normalization Report (if performing quant)
+Quant SAS Input (if performing quant)
+
+**Help**
+
+- Please review the NRTPD TDPortal SOP for additional information `here`_
+
+.. _here: http://galaxy-dev.kelleher.northwestern.edu/static/Galaxy_Quick_Start_Guide_20160224_v3_jbg.pdf
+
+
+Please feel free to email the development team if additional assistance is required: nrtdp-help@northwestern.edu
+
+  </help>
+
+
+
+
+
+</tool>
+
+

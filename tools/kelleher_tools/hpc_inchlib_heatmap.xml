@@ -1,0 +1,102 @@
+<tool id="hpc_inchlib_heatmap" name="Inchlib Heatmap" version="1.1.1">
+  <description>Inchlib Heatmap</description>
+    <command interpreter="python">hpc_inchlib_heatmap.py $data $row_metadata $column_metadata $heatmap_color $dendogram_number $env_mode $__new_file_path__ $hpc_inchlib_heatmap_outfile</command>
+  <inputs>
+    <param name="data" type="data" label="Data" />
+    <param name="row_metadata" type="data" label="Row Metadata" />
+    <param name="column_metadata" type="data" label="Column Metadata" />
+    <param name="heatmap_color" type="select" label="Heatmap_Color">
+      <option value="RdYlBu">Red Yellow Blue</option>
+      <option value="GnBu">Green Blue</option>
+      <option value="RdBkGr">Red Black Green</option>
+    </param>
+    <param name="dendogram_number" type="select" label="Dendogram Number">
+      <option value="row">Row</option>
+      <option value="column">Column</option>
+      <option value="both">Both</option>
+    </param>
+    <param name="env_mode" type="select" label="Code Set">
+      <option value="standard_2_0">Standard v2.0</option>
+    </param>
+  </inputs>
+    <outputs>
+        <data format="html" name="hpc_inchlib_heatmap_outfile" type="html" label="heatmap"/>
+    </outputs>
+  <tests>
+    <test>
+      <param name="input1">
+        <collection type="list">
+          <element name="l11" value="simple_line.txt" />
+          <element name="l12" value="simple_line.txt" />
+        </collection>
+      </param>
+      <output_collection name="list_output" type="list">
+        <element name="l11">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l11\n$" />
+          </assert_contents>
+        </element>
+        <element name="l12">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l12\n$" />
+          </assert_contents>
+        </element>
+      </output_collection>
+    </test>
+  </tests>
+
+<help>
+**What it does**
+
+Clusters the metadata and data into a Json file. Subsequently returns an html file that when opened in an internet browser, returns a heatmap of your color preference.
+
+**Input**
+
+Data for clustering should be supplied to the tool as csv (comma separated values) files.
+If the user wants to have column headers displayed in the heatmap, the first row of a csv file must contain header names.
+Row and column metadata are provided in a separate csv files. 
+The first column of both data and row metadata (not applicable to column metadata file) files is always taken as an ID column. 
+Below are given example snippets of data and row/column metadata files. They represent the activities of several ligands measured at three different concentrations with three physico-chemical properties as row metadata and three measurement properties as column metadata.
+
+________________________________________________
+
+Data file: 
+
+compoundid,1x10-5 mol.dm-3,1x10-4 mol.dm-3, 1x10-3 mol.dm-3
+
+13736,6.675,5.932,4.799
+
+13738,4.482,10.458,5.68
+
+__________________________________________________
+
+Row_Metadata file: 
+
+compoundid,LogP,Molecular Weight,Aromatic Rings
+
+13736,2.788,286.157,1
+
+13738,3.829,314.188,1
+
+13548,4.45,330.219,0
+
+_________________________________________________
+
+Column_Metadata file: 
+
+Solvent,DMSO,DMSO,DMSO
+
+Concentration,0.00001,0.0001,0.001
+
+Measurement order,2,1,3
+
+
+  </help>
+
+
+
+
+
+</tool>
+
+

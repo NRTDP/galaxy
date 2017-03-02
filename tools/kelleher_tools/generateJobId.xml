@@ -1,0 +1,36 @@
+<tool id="generate_job_id" name="Generate Workflow Job Id" version="1.0.1">
+  <description>Generate Workflow Job Id</description>
+	<command interpreter="sh">generateJobId.sh $out_file1</command>
+  <inputs>
+<!--    <param name="lineNum" size="5" type="integer" value="8" label="Select first" help="lines"/>-->
+<!--    <param format="txt" name="input" type="data" multiple="true"  label="from" />-->
+<!--    <param format="txt" name="input" type="data" mulitple="true" label="from"/>-->
+  </inputs>
+
+    <outputs>
+        <data name="out_file1" format="txt"/>
+    </outputs>
+      <tests>
+    <test>
+      <param name="lineNum" value="10"/>
+      <param name="input" value="1.bed"/>
+      <output name="out_file1" file="eq-showbeginning.dat"/>
+    </test>
+  </tests>
+  <help>
+
+**What it does**
+
+Generates an id that is used to track raw to mzML conversion and search progress.
+
+**Help**
+
+- Please review the NRTPD TDPortal SOP for additional information `here`_
+
+.. _here: http://galaxy-dev.kelleher.northwestern.edu/static/Galaxy_Quick_Start_Guide_20160224_v3_jbg.pdf
+
+
+Please feel free to email the development team if additional assistance is required: nrtdp-help@northwestern.edu
+
+  </help>
+</tool>

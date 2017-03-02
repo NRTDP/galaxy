@@ -1,0 +1,82 @@
+<tool id="hpc_advanced_search" name="Advanced Search on Quest" version="1.0.1">
+  <description>Search mzML zip file on Quest</description>
+<command interpreter="sh">hpc_advanced_search.sh $input1 $input3 '$regex' $tdreport_outfile $output_normalization_outfile $quant_sas_output  $__new_file_path__ $__user_id__  $__user_email__ $input2 "$env_mode" "$res_mode" </command> 
+  <inputs>
+    <param name="input1" type="data" label="mzML zip file" />
+    <param name="input2" type="data" multiple="true" format="txt" label="Workflow Id" />
+    <param name="input3" type="data" multiple="true" label="Database Flatfile" />
+    <param name="regex" type="text" value="" label="Regex"/>
+    <param name="res_mode" type="select" label="Data File Resolution">
+      <option value="hi_res_default_search_tree.pds">High Resolution</option>
+      <option value="med_res_default_search_tree.pds">Medium Resolution</option>
+      <option value="low_res_default_search_tree.pds">Low Resolution</option>
+    </param>
+    <param name="env_mode" type="select" label="Build Version">
+      <option value="prod">Production</option>
+<!--      <option value="dev">Development</option>-->
+      <option value="qa">QA</option>
+    </param>
+  </inputs>
+    <outputs>
+        <data format="tdReport" name="tdreport_outfile" type="data" label="Generated Top Down Report"/>
+        <data format="csv" name="output_normalization_outfile" type="data" label="Generated Output Normalization Report"/>
+        <data format="csv" name="quant_sas_output" type="data" label="Quant SAS Input"/>
+    </outputs>
+  <tests>
+    <test>
+      <param name="input1">
+        <collection type="list">
+          <element name="l11" value="simple_line.txt" />
+          <element name="l12" value="simple_line.txt" />
+        </collection>
+      </param>
+      <output_collection name="list_output" type="list">
+        <element name="l11">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l11\n$" />
+          </assert_contents>
+        </element>
+        <element name="l12">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l12\n$" />
+          </assert_contents>
+        </element>
+      </output_collection>
+    </test>
+  </tests>
+
+<help>
+**What it does**
+
+Searches a zip file containing mzML files against a custom database and returns a tdReport                               
+
+**Input**
+
+Zip file contiaing mzML files
+Input flat file to create database from
+Workflow id
+Organism
+Regex (if performing quant)
+Data File Resolution (high, medium or low)
+
+**Output**
+
+tdReport viewable in the TDViewer http://topdownviewer.northwestern.edu/
+Normalization Report (if performing quant)
+Quant SAS Input (if performing quant)   
+
+**Help**
+
+- Please review the NRTPD TDPortal SOP for additional information `here`_
+
+.. _here: http://galaxy-dev.kelleher.northwestern.edu/static/Galaxy_Quick_Start_Guide_20160224_v3_jbg.pdf
+
+
+Please feel free to email the development team if additional assistance is required: nrtdp-help@northwestern.edu
+
+  </help> 
+
+
+</tool>
+
+

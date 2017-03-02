@@ -1,0 +1,70 @@
+<tool id="pce_galaxy_sic_norm" name="Sic Normalization" version="0.1.0">
+  <description>Sic Normalization</description>
+
+## <command>##
+##for $key in $list_output.keys()##
+## C:\Python27\python collection_creates_list.py
+ ## C:\Python27\python "S:\Kelleher Data\Greer.Joseph\GalaxyToolProjects\GalaxyConvertRawToMzML\dsc.py" $input1 $list_output "$list_output.keys()";##
+##  C:\Python27\python "S:\Kelleher Data\Greer.Joseph\GalaxyToolProjects\GalaxyConvertRawToMzML\dsc.py" "$input1[$key]" "$list_output[$key]"##
+  C:\Python27\python "C:\Users\Administrator\pulsar\scripts\sic_norm.py" "$input1" "$input2" "$output1" "$output2"
+##  C:\Python27\python "C:\Users\Administrator\pulsar\scripts\dsc.py" "$input1" $list_output $__new_file_path__ $__user_email__##
+
+
+##  C:\Python27\python "C:\Users\Administrator\pulsar\scripts\crawler_convert.py" "$input1" $list_output $__new_file_path__ $__user_email__ "$input2"##
+##    python "/projects/d20657/shared/HPC_Galaxy/dsc.py" "$input1[$key]" > "$list_output[$key]";##
+ ##end for##
+ 
+
+##  </command>##
+  <inputs>
+    <param name="input1" type="data_collection" collection_type="list" label="Input Dataset List" help="Input collection..."/>
+    <param name="input2" type="data" label="Target csv" />
+  </inputs>
+  <outputs>
+    <data format="csv" name="output1" type="csv" label="mz Raw Data"/>
+    <data format="csv" name="output2" type="csv" label="mz Normalized Data"/>
+  </outputs>
+  <tests>
+    <test>
+      <param name="input1">
+        <collection type="list">
+          <element name="l11" value="simple_line.txt" />
+          <element name="l12" value="simple_line.txt" />
+        </collection>
+      </param>
+      <output_collection name="list_output" type="list">
+        <element name="l11">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l11\n$" />
+          </assert_contents>
+        </element>
+        <element name="l12">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l12\n$" />
+          </assert_contents>
+        </element>
+      </output_collection>
+    </test>
+  </tests>
+  <help>
+
+**What it does**
+
+Processes a dataset list of raw files
+
+**Input**
+
+- Dataset list of raw files
+- Input csv
+
+**Output**
+
+- mz raw sheet
+- mz normalized sheet
+
+  </help>
+
+
+</tool>
+
+

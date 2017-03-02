@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <datatypes>
   <registration converters_path="lib/galaxy/datatypes/converters" display_path="display_applications">
+
+    <datatype extension="pds" type="galaxy.datatypes.binary:pds" mimetype="application/octet-stream" display_in_upload="true"/>
+    <datatype extension="tdReport" type="galaxy.datatypes.binary:tdReport" mimetype="application/octet-stream" display_in_upload="true"/>
+    <datatype extension="db" type="galaxy.datatypes.binary:db" mimetype="application/octet-stream" display_in_upload="true"/>
+
     <datatype extension="ab1" type="galaxy.datatypes.binary:Ab1" mimetype="application/octet-stream" display_in_upload="true" description="A binary sequence file in 'ab1' format with a '.ab1' file extension.  You must manually select this 'File Format' when uploading the file." description_url="https://wiki.galaxyproject.org/Learn/Datatypes#Ab1"/>
     <datatype extension="afg" type="galaxy.datatypes.assembly:Amos" display_in_upload="false" />
     <datatype extension="arff" type="galaxy.datatypes.text:Arff" mimetype="text/plain" display_in_upload="true" />
@@ -606,6 +611,11 @@
     defined format first, followed by next-most rigidly defined,
     and so on.
     -->
+   
+    <sniffer type="galaxy.datatypes.binary:db"/>
+    <sniffer type="galaxy.datatypes.binary:tdReport"/>
+    <sniffer type="galaxy.datatypes.binary:pds"/>
+
     <sniffer type="galaxy.datatypes.text:Smat"/>
     <sniffer type="galaxy.datatypes.mothur:Sabund"/>
     <sniffer type="galaxy.datatypes.mothur:Otu"/>

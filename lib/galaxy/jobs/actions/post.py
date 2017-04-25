@@ -65,6 +65,196 @@ class EmailAction(DefaultJobAction):
         else:
             return "Email the current user when this job is complete."
 
+class StartEmailAction(DefaultJobAction):
+    """
+    This action sends an email to the galaxy user responsible for a job.
+    """
+    name = "StartEmailAction"
+    verbose_name = "Workflow Start Email Notification"
+    @classmethod
+    def execute(cls, app, sa_session, action, job, replacement_dict):
+        if action.action_arguments and 'host' in action.action_arguments:
+            host = action.action_arguments['host']
+        else:
+            host = 'usegalaxy.org'
+#        frm = 'galaxy-noreply@%s' % host
+        frm = 'nrtdp-help@northwestern.edu'
+        to = job.user.email
+      
+        subject = "NRTDP TDPortal Search for Job: %s has Started!" % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0])
+        outdata = ', '.join(ds.dataset.display_name() for ds in job.output_datasets)
+        body = "\n"
+        body = "\n"
+        body += "Your NRTDP TDPortal Search started  %s." % (datetime.datetime.now().strftime( "%I:%M" ))
+        body += "\n"
+        body += "\n"
+        body += "Search Job Id: %s." % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0])
+        body += "\n"
+        body += "\n"
+        body += "Search contained in history: %s." % (job.history.name)
+        body += "\n"
+        body += "\n"
+        body += "View your job directly at  https://portal.nrtdp.northwestern.edu/progress/?jobId=%s" % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0])
+        body += "\n"
+        body += "\n"
+        body += "More information about our other software offering and the exciting ways the NRTDP is accelerating a significant shift in how protein molecules are analyzed by mass spectrometry is on the NRTDP webpage: http://nrtdp.northwestern.edu/."
+        body += "\n"
+        body += "\n"
+        body += "Please direct any questions to the NRTDP TDPortal development team at nrtdp-help@northwestern.edu."
+#        subject = "Galaxy workflow step notification for Job: %s History: %s" % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0], job.history.name)
+#        outdata = ', '.join(ds.dataset.display_name() for ds in job.output_datasets)
+#        body = "Your Galaxy step generating dataset '%s' is complete as of %s. " % (outdata, datetime.datetime.now().strftime( "%I:%M" ))
+#        body += "View your job directly at  https://portal.nrtdp.northwestern.edu/progress/?jobId=%s" % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0])
+#        subject = "Galaxy workflow step notification '%s'" % (job.history.name)
+#        outdata = ', '.join(ds.dataset.display_name() for ds in job.output_datasets)
+#        body = "Your Galaxy job generating dataset '%s' is complete as of %s." % (outdata, datetime.datetime.now().strftime( "%I:%M" ))
+#        subject = "Galaxy workflow step notification for Job: '%s'" % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0])
+#        outdata = ', '.join(ds.dataset.display_name() for ds in job.output_datasets)
+#        body = "View your job directly at  https://portal.nrtdp.northwestern.edu/progress/?jobId=%s" % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0])
+        if job.state != 'error':
+            try:
+                send_mail( frm, to, subject, body, app.config )
+            except Exception, e:
+                log.error("EmailAction PJA Failed, exception: %s" % e)
+    @classmethod
+    def get_config_form(cls, trans):
+        form = """
+            p_str += "<label for='pja__"+pja.output_name+"__StartEmailAction'>There are no additional options for this action.  You will be emailed upon job completion.</label>\
+                        <input type='hidden' value='%s' name='pja__"+pja.output_name+"__StartEmailAction__host'/><input type='hidden' name='pja__"+pja.output_name+"__StartEmailAction'/>";
+            """ % trans.request.host
+        return get_form_template(cls.name, cls.verbose_name, form, "This action will send an email notifying you when the job is done.", on_output=False)
+    @classmethod
+    def get_short_str(cls, pja):
+        if pja.action_arguments and 'host' in pja.action_arguments:
+            return "Email the current user from server %s when this step successfully completes." % pja.action_arguments['host']
+        else:
+            return "Email the current user when this step successfully completes."
+class SuccessEmailAction(DefaultJobAction):
+    """
+    This action sends an email to the galaxy user responsible for a job.
+    """
+    name = "SuccessEmailAction"
+    verbose_name = "Step Success Email Notification"
+    @classmethod
+    def execute(cls, app, sa_session, action, job, replacement_dict):
+        if action.action_arguments and 'host' in action.action_arguments:
+            host = action.action_arguments['host']
+        else:
+            host = 'usegalaxy.org'
+        frm = 'nrtdp-help@northwestern.edu'
+        to = job.user.email
+      
+        subject = "NRTDP TDPortal Search for Job: %s has Completed!" % (job.command_line.split()[-4].split('dataset_')[-1].split('.')[0])
+        outdata = ', '.join(ds.dataset.display_name() for ds in job.output_datasets)
+        body = "\n"
+        body = "\n"
+        body += "Your NRTDP TDPortal Search finished at %s." % (datetime.datetime.now().strftime( "%I:%M" ))
+        body += "\n"
+        body += "\n"
+        body += "Search Job Id: %s." % (job.command_line.split()[-4].split('dataset_')[-1].split('.')[0])
+        body += "\n"
+        body += "\n"
+        body += "Search contained in history: %s." % (job.history.name)
+        body += "\n"
+        body += "\n"
+        body += "The tdReport can downloaded from the Galaxy history and viewed in the TopDown Viewer. The TopDown Viewer can be downloaded here: http://proteinaceous-apps.azurewebsites.net/topdownviewer"
+        body += "\n"
+        body += "\n"
+        body += "More information about our other software offering and the exciting ways the NRTDP is accelerating a significant shift in how protein molecules are analyzed by mass spectrometry is on the NRTDP webpage: http://nrtdp.northwestern.edu/."
+        body += "\n"
+        body += "\n"
+        body += "Please direct any questions to the NRTDP TDPortal development team at nrtdp-help@northwestern.edu."
+#        subject = "Galaxy workflow step notification for Job: %s History: %s" % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0], job.history.name)
+#        outdata = ', '.join(ds.dataset.display_name() for ds in job.output_datasets)
+#        body = "Your Galaxy step generating dataset '%s' is complete as of %s. " % (outdata, datetime.datetime.now().strftime( "%I:%M" ))
+#        body += "View your job directly at  http://galaxy-dev.kelleher.northwestern.edu/progress/?jobId=%s" % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0])
+#        subject = "Galaxy workflow step notification '%s'" % (job.history.name)
+#        outdata = ', '.join(ds.dataset.display_name() for ds in job.output_datasets)
+#        body = "Your Galaxy job generating dataset '%s' is complete as of %s." % (outdata, datetime.datetime.now().strftime( "%I:%M" ))
+#        subject = "Galaxy workflow step notification for Job: '%s'" % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0])
+#        outdata = ', '.join(ds.dataset.display_name() for ds in job.output_datasets)
+#        body = "View your job directly at  http://galaxy-dev.kelleher.northwestern.edu/progress/?jobId=%s" % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0])
+        if job.stderr == '':
+            try:
+                send_mail( frm, to, subject, body, app.config )
+            except Exception, e:
+                log.error("EmailAction PJA Failed, exception: %s" % e)
+    @classmethod
+    def get_config_form(cls, trans):
+        form = """
+            p_str += "<label for='pja__"+pja.output_name+"__SuccessEmailAction'>There are no additional options for this action.  You will be emailed upon job completion.</label>\
+                        <input type='hidden' value='%s' name='pja__"+pja.output_name+"__SuccessEmailAction__host'/><input type='hidden' name='pja__"+pja.output_name+"__SuccessEmailAction'/>";
+            """ % trans.request.host
+        return get_form_template(cls.name, cls.verbose_name, form, "This action will send an email notifying you when the job is done.", on_output=False)
+    @classmethod
+    def get_short_str(cls, pja):
+        if pja.action_arguments and 'host' in pja.action_arguments:
+            return "Email the current user from server %s when this step successfully completes." % pja.action_arguments['host']
+        else:
+            return "Email the current user when this step successfully completes."
+class FailureEmailAction(DefaultJobAction):
+    """
+    This action sends an email to the galaxy user responsible for a job.
+    """
+    name = "FailureEmailAction"
+    verbose_name = "Step Failure Email Notification"
+    @classmethod
+    def execute(cls, app, sa_session, action, job, replacement_dict):
+        if action.action_arguments and 'host' in action.action_arguments:
+            host = action.action_arguments['host']
+        else:
+            host = 'usegalaxy.org'
+        frm = 'nrtdp-help@northwestern.edu'
+        to   = [job.user.email, 'nrtdp-help@northwestern.edu']
+#        to = job.user.email
+#        subject = "Galaxy workflow step notification '%s'" % (job.history.name)
+#        outdata = ', '.join(ds.dataset.display_name() for ds in job.output_datasets)
+        subject = "Error Occurred during NRTDP TDPortal Search for Job: %s." % (job.command_line.split()[-4].split('dataset_')[-1].split('.')[0])
+        outdata = ', '.join(ds.dataset.display_name() for ds in job.output_datasets)
+        body = "\n"
+        body += "An error occurred during your NRTDP TDPortal search at %s." % (datetime.datetime.now().strftime( "%I:%M" ))
+        body += "\n"
+        body += "\n"
+        body += "Search Job Id: %s." % (job.command_line.split()[-4].split('dataset_')[-1].split('.')[0])
+        body += "\n"
+        body += "\n"
+        body += "Search contained in history: %s." % (job.history.name)
+        body += "\n"
+        body += "\n"
+        body += "Error occurred while generating %s." % (outdata)
+        body += "\n"
+        body += job.stderr
+        body += "\n"
+        body += "View your job directly at  https://portal.nrtdp.northwestern.edu/progress/?jobId=%s" % (job.command_line.split()[-4].split('dataset_')[-1].split('.')[0])
+        body += "\n"
+        body += "\n"
+        body += "Please direct any questions to the NRTDP TDPortal development team at nrtdp-help@northwestern.edu."
+#        subject = "Galaxy workflow step notification for Job: '%s'" % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0])
+#        outdata = ', '.join(ds.dataset.display_name() for ds in job.output_datasets)
+#        body = "View your job directly at  http://galaxy-dev.kelleher.northwestern.edu/progress/?jobId=%s" % (job.command_line.split()[-1].split('dataset_')[-1].split('.')[0])
+        if job.stderr != '':
+            try:
+                send_mail( 'not error', to, subject, body, app.config )
+            except Exception, e:
+                log.error("EmailAction PJA Failed, exception: %s" % e)
+        if job.state == 'error':
+            try:
+                send_mail( 'error', to, subject, body, app.config )
+            except Exception, e:
+                log.error("EmailAction PJA Failed, exception: %s" % e)
+    @classmethod
+    def get_config_form(cls, trans):
+        form = """
+            p_str += "<label for='pja__"+pja.output_name+"__FailureEmailAction'>There are no additional options for this action.  You will be emailed upon job completion.</label>\
+                        <input type='hidden' value='%s' name='pja__"+pja.output_name+"__FailureEmailAction__host'/><input type='hidden' name='pja__"+pja.output_name+"__FailureEmailAction'/>";
+            """ % trans.request.host
+        return get_form_template(cls.name, cls.verbose_name, form, "This action will send an email notifying you when the job is done.", on_output=False)
+    @classmethod
+    def get_short_str(cls, pja):
+        if pja.action_arguments and 'host' in pja.action_arguments:
+            return "Email the current user from server %s when an error occurs during this step." % pja.action_arguments['host']
+        else:
+            return "Email the current user when an error occurs during this step."
 
 class ChangeDatatypeAction(DefaultJobAction):
     name = "ChangeDatatypeAction"
@@ -354,11 +544,14 @@ class ActionBox(object):
                 "ChangeDatatypeAction": ChangeDatatypeAction,
                 "ColumnSetAction": ColumnSetAction,
                 "EmailAction": EmailAction,
+                "StartEmailAction": StartEmailAction,
+                "SuccessEmailAction": SuccessEmailAction,
+                "FailureEmailAction": FailureEmailAction,
                 "DeleteIntermediatesAction": DeleteIntermediatesAction,
                 "TagDatasetAction": TagDatasetAction,
                 }
     public_actions = ['RenameDatasetAction', 'ChangeDatatypeAction',
-                      'ColumnSetAction', 'EmailAction',
+                      'ColumnSetAction', 'EmailAction', 'StartEmailAction', 'SuccessEmailAction', 'FailureEmailAction',
                       'DeleteIntermediatesAction', 'TagDatasetAction']
     immediate_actions = ['ChangeDatatypeAction', 'RenameDatasetAction',
                          'TagDatasetAction']

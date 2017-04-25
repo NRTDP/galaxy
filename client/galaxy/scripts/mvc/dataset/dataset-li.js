@@ -253,6 +253,24 @@ var DatasetListItemView = _super.extend(
             }
         });
     },
+     /**jbg669 added */
+    _renderShowProgressButton : function(){
+        // gen. safe to show in all cases
+        return faIconButton({
+            title       : _l( 'Check Progress' ),
+            classes     : 'show_progress-btn',
+            href        : this.model.urls.show_progress,
+            target      : this.linkTarget,
+            faIcon      : 'fa-tasks',
+            onclick     : function( ev ) {
+                if ( Galaxy.frame && Galaxy.frame.active ) {
+                    Galaxy.frame.add( { title: 'Dataset details', url: this.href } );
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                }
+            }
+        });
+    },
 
 
     /** Render icon-button/popupmenu to download the data (and/or the associated meta files (bai, etc.)) for this.

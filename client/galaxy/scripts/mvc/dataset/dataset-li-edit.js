@@ -205,13 +205,21 @@ var DatasetListItemEdit = _super.extend(
             faIcon      : 'fa-bug'
         });
     },
-
+    _renderProgressButton : function(){
+        return a({
+            title       : c("Check Progress of Search"),
+            href:this.model.urls.show_progress, 
+            classes:"show_progress-btn",
+            target:this.linkTarget,
+            faIcon:"fa-tasks"
+        });
+    },
     /** Render icon-button to re-run the job that created this dataset. */
-    _renderRerunButton : function(){
+    /**_renderRerunButton : function(){
         var creating_job = this.model.get( 'creating_job' );
         if( this.model.get( 'rerunnable' ) ){
             return faIconButton({
-                title       : _l( 'Run this job again' ),
+                title       : _l( 'Run this job again jbg669_4' ),
                 href        : this.model.urls.rerun,
                 classes     : 'rerun-btn',
                 target      : this.linkTarget,
@@ -229,7 +237,7 @@ var DatasetListItemEdit = _super.extend(
                 }
             });
         }
-    },
+    },*/
 
     /** Render an icon-button or popupmenu of links based on the applicable visualizations */
     _renderVisualizationsButton : function(){

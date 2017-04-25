@@ -69,11 +69,50 @@ define( [ 'utils/utils', 'mvc/tool/tool-form-base' ],
                     type        : 'boolean',
                     value       : String( Boolean( this.post_job_actions[ 'EmailAction' + output_id ] ) ),
                     ignore      : 'false',
-                    help        : 'An email notification will be sent when the job has completed.',
+                    help        : 'An email notification jbg669_2 will be sent when the job has completed.',
                     payload     : {
                         'host'  : window.location.host
                     }
                 };
+                //jbg669_added_04_13_2017
+                inputs[Utils.uid()] = {
+                    name        : 'pja__' + output_id + '__StartEmailAction',
+                    label       : 'Workflow Start Email Notification',
+                    type        : 'boolean',
+                    value       : String(Boolean(this.post_job_actions['StartEmailAction' + output_id])),
+                    ignore      : 'false',
+                    help        : 'An email notification will be send when the job has completed.',
+                    payload     : {
+                        'host'  : window.location.host
+                    }
+                };
+
+                //jbg669_added_04_13_2017
+                inputs[Utils.uid()] = {
+                    name        : 'pja__' + output_id + '__SuccessEmailAction',
+                    label       : 'Step Success Email Notification',
+                    type        : 'boolean',
+                    value       : String(Boolean(this.post_job_actions['SuccessEmailAction' + output_id])),
+                    ignore      : 'false',
+                    help        : 'An email notification will be send when the job has completed.',
+                    payload     : {
+                        'host'  : window.location.host
+                    }
+                };
+
+                //jbg669_added_04_13_2017
+                inputs[Utils.uid()] = {
+                    name        : 'pja__' + output_id + '__FailureEmailAction',
+                    label       : 'Step Failure Email Notification',
+                    type        : 'boolean',
+                    value       : String(Boolean(this.post_job_actions['FailureEmailAction' + output_id])),
+                    ignore      : 'false',
+                    help        : 'An email notification will be send when the job has completed.',
+                    payload     : {
+                        'host'  : window.location.host
+                    }
+                };
+
                 inputs[ Utils.uid() ] = {
                     name        : 'pja__' + output_id + '__DeleteIntermediatesAction',
                     label       : 'Output cleanup',
@@ -82,7 +121,7 @@ define( [ 'utils/utils', 'mvc/tool/tool-form-base' ],
                     ignore      : 'false',
                     help        : 'Upon completion of this step, delete non-starred outputs from completed workflow steps if they are no longer required as inputs.'
                 };
-                for ( var i in this.node.output_terminals ) {
+                for ( var i ion this.node.output_terminals ) {
                     inputs[ Utils.uid() ] = this._makeSection( i, datatypes );
                 }
             }

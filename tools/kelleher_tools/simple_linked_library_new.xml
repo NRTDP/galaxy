@@ -1,6 +1,6 @@
 <tool id="ftp_simple_linked_library_generator" name="Create Linked Library" version="1.0.1">
   <description>Create Linked Library</description>
-<command interpreter="python">/var/galaxy_qa/bioblend/bioblend/galaxy/simple_linked_library_new2.py $__user_email__ "$project" "$dataset" "$lib_name" "$lib_description" "$lib_synopsis" "$permission_list" $__user_id__  $__user_email__</command>
+<command interpreter="python">/var/galaxy_dev/galaxy/tools/kelleher_tools/simple_linked_library_prod.py $__user_email__ "$project" "$dataset" "$lib_name" "$lib_description" "$lib_synopsis" "$permission_list" $__user_id__  $__user_email__</command>
 
 <!--<command interpreter="python">/home/galaxy/bioblend/bioblend/galaxy/simple_linked_library.py $folder $lib_name $lib_description $lib_synopsis "$permission_list" $__user_id__  $__user_email__</command>-->
   <inputs>

@@ -29,11 +29,13 @@ use = egg:Paste#http
 
 # The port on which to listen.
 #port = 8080
+port = 8081
 
 # The address on which to listen.  By default, only listen to localhost (Galaxy
 # will not be accessible over the network).  Use '0.0.0.0' to listen on all
 # available network interfaces.
 #host = 127.0.0.1
+host = 129.105.88.58
 
 # Use a threadpool for the web server instead of creating a thread for each
 # request.
@@ -148,6 +150,8 @@ paste.app_factory = galaxy.web.buildapp:app_factory
 # (config/tool_conf.xml.sample will be used if left unset and
 # config/tool_conf.xml does not exist).
 #tool_config_file = config/tool_conf.xml,config/shed_tool_conf.xml
+tool_config_file = ./config/tool_conf.xml.main,config/shed_tool_conf.xml
+
 
 # Enable / disable checking if any tools defined in the above non-shed
 # tool_config_files (i.e., tool_conf.xml) have been migrated from the Galaxy
@@ -355,7 +359,7 @@ paste.app_factory = galaxy.web.buildapp:app_factory
 # By default none will be loaded.  Set to config/plugins/webhooks/demo to load Galaxy's
 # demo webhooks.  To use an absolute path begin the path with '/'.  This is a comma
 # separated list.
-# webhooks_dir = config/plugins/webhooks
+webhooks_dir = config/plugins/webhooks/demo
 
 # Each job is given a unique empty directory as its current working directory.
 # This option defines in what parent directory those directories will be
@@ -1076,7 +1080,7 @@ use_interactive = True
 # XML config file that allows the use of different authentication providers
 # (e.g. LDAP) instead or in addition to local authentication (.sample is used
 # if default does not exist).
-#auth_config_file = config/auth_conf.xml
+auth_config_file = config/auth_conf.xml
 
 # Optional list of email addresses of API users who can make calls on behalf of
 # other users.

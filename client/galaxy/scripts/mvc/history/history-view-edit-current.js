@@ -347,6 +347,7 @@ var CurrentHistoryView = _super.extend(/** @lends CurrentHistoryView.prototype *
                     'report_error'  : /dataset\/errors\?id=([a-f0-9]+)/,
                     'rerun'         : /tool_runner\/rerun\?id=([a-f0-9]+)/,
                     'show_params'   : /datasets\/([a-f0-9]+)\/show_params/,
+                    'show_progress' : /datasets\/([a-f0-9]+)\/show_progress/,
                     // no great way to do this here? (leave it in the dataset event handlers above?)
                     // 'visualization' : 'visualization',
                 };

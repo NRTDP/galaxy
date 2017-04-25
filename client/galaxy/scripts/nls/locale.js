@@ -180,7 +180,7 @@ false,
 "View or report this error" :
 false,
 
-"Run this job again" :
+"Run this job again jbg669_7" :
 false,
 
 "Visualize" :

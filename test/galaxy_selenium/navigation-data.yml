@@ -99,7 +99,7 @@ historyPanel:
             tooltip  : 'View details'
         rerun:
             selector : '.icon-btn.rerun-btn'
-            tooltip  : 'Run this job again'
+            tooltip  : 'Run this job again jbg669_12'
     selectors:
         history:
             title       : '.controls .title'

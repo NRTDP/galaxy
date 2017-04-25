@@ -344,7 +344,7 @@ HistoryPanel.prototype.data = {
         },
         rerun : {
             selector : '.icon-btn.rerun-btn',
-            tooltip  : 'Run this job again',
+            tooltip  : 'Run this job again jbg669_13',
             hrefTpl  : '/tool_runner/rerun?id=%s',
             nodeName : 'a'
         },

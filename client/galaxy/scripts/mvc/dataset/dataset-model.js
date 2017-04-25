@@ -68,6 +68,7 @@ var DatasetAssociation = Backbone.Model
             'report_error'  : 'dataset/errors?id=' + id,
             'rerun'         : 'tool_runner/rerun?id=' + id,
             'show_params'   : 'datasets/' + id + '/show_params',
+            'show_progress' : 'datasets/' + id + '/show_progress',
             'visualization' : 'visualization',
             'meta_download' : 'dataset/get_metadata_file?hda_id=' + id + '&metadata_name='
         };

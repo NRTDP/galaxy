@@ -3,6 +3,7 @@ import os, sys, imp, re
 
 
 def get_project_folders():
+    print("one_a")
     folders = []
     projects = os.listdir("/share/krgData2/Projects/")
 #    projects = os.listdir("/share/projects/")
@@ -11,6 +12,7 @@ def get_project_folders():
     return folders
 
 def get_raw_file_folders(project_folder):
+    print("two_a")
     raw_file_folders = []
     project_datasets = os.listdir("/share/krgData2/Projects/" + project_folder)
 #    project_datasets = os.listdir("/share/projects/" + project_folder)
@@ -19,26 +21,42 @@ def get_raw_file_folders(project_folder):
     return raw_file_folders
 
 def get_ftp_folders(trans, user_email):
+    print("three_a")
     email_parts = user_email.split('@')
+    print("three_b")
     cleaned_username = re.sub(r'\W+', '', email_parts[0])
+    print("three_c")
     email_type = email_parts[1].split('.')[0]
+    print("three_d")
 
     raw_file_folders = []
     ftp_datasets = os.listdir("/share/PCEitAdmin/Galaxy/external_users")
+    print("three_e")
     for i, field_component in enumerate( ftp_datasets ):
+        print("three_f")
         if field_component == cleaned_username:
+            print("three_g")
             raw_file_folders.append( ( "(SFTP_old) " + field_component, "(SFTP_old) " + field_component, i == 0 ) )
 
+    print("three_h")
     nu_pcedata_ftp_datasets = os.listdir("/share/NU-PCEDATA/external_users")
+    print("three_i")
     for i, field_component in enumerate( nu_pcedata_ftp_datasets ):
+        print("three_j")
         if field_component == cleaned_username:
+            print("three_k")
             raw_file_folders.append( ( "(SFTP_new) " + field_component, "(SFTP_new) " + field_component, i == 0 ) )
 
+    print("three_l")
     if "northwestern" in email_parts[1]:
+        print("three_m")
         projects = os.listdir("/share/krgData2/Projects/")
+        print("three_n")
         for i, field_component in enumerate( projects ):
+            print("three_o")
             raw_file_folders.append( ( field_component, field_component, i == 0 ) )
 
+    print("three_p")
     return raw_file_folders
 
 
@@ -71,7 +89,7 @@ def get_ftp_folders(trans, user_email):
 #    return raw_file_folders
 
 def get_ftp_raw_file_folders(user_email, project_folder):
-    print("THERE")
+    print("THERE77777777777777777777777777777777777777777777777777777777777777777777777777777")
     print(project_folder)
     print("THERE")
 
@@ -88,24 +106,39 @@ def get_ftp_raw_file_folders(user_email, project_folder):
 
 
 
+    print("three_a1")
 
     if "FTP" in project_folder:
+        print("three_b1")
         if "old" in project_folder:
+            print("three_c1")
             project_datasets = os.listdir("/share/PCEitAdmin/Galaxy/external_users/" + project_folder.split()[1])
             for i, field_component in enumerate( project_datasets ):
+                print("three_d1")
                 raw_file_folders.append( ( field_component, field_component, i == 0 ) )
+                print("three_e1")
         if "new" in project_folder:
+            print("three_f1")
             project_datasets2 = os.listdir("/share/NU-PCEDATA/external_users/" + project_folder.split()[1])
+            print("three_g1")
             for i, field_component in enumerate( project_datasets2 ):
+                print("three_h1")
                 raw_file_folders.append( ( field_component, field_component, i == 0 ) )
     else:    
+        print("three_i1")
         project_datasets = os.listdir("/share/krgData2/Projects/" + project_folder)
+        print("three_j1")
         for i, field_component in enumerate( project_datasets ):
+            print("three_k1")
             raw_file_folders.append( ( field_component, field_component, i == 0 ) )
+            print("three_l1")
+
+    print("three_m1")
 
     return raw_file_folders
 
 def get_field_components_options( dataset, field_name ):
+    print("four_a")
     options = []
     if dataset.metadata is None:
         return options

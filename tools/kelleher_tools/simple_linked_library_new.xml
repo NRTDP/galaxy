@@ -1,32 +1,20 @@
-<tool id="ftp_simple_linked_library_generator" name="Create Linked Library" version="1.0.1">
+<tool id="ftp_simple_linked_library_generator" name="Create Linked Library 42" version="1.0.1">
   <description>Create Linked Library</description>
-<command interpreter="python">/var/galaxy_dev/galaxy/tools/kelleher_tools/simple_linked_library_prod.py $__user_email__ "$project" "$dataset" "$lib_name" "$lib_description" "$lib_synopsis" "$permission_list" $__user_id__  $__user_email__</command>
-
-<!--<command interpreter="python">/home/galaxy/bioblend/bioblend/galaxy/simple_linked_library.py $folder $lib_name $lib_description $lib_synopsis "$permission_list" $__user_id__  $__user_email__</command>-->
+    <command interpreter="python">/var/galaxy_dev/galaxy/tools/kelleher_tools/simple_linked_library_prod.py $__user_email__ "$project" "$dataset" "$lib_name" "$lib_description" "$lib_synopsis" "$permission_list" $__user_id__  $__user_email__</command>
   <inputs>
-<!--<param name="group" type="select" label="Select your group" hidden="true"> 
-        <options from_file="access_to_ftp"> 
-                <column name="email" index="0"/> 
-                <column name="value" index="1"/> 
-                <filter type="static_value" name="external_source_filter" value="$__user_email__" column="0"/> 
-        </options> 
-</param>--> 
-<!--    <param name="group" value=$__user_email__  hidden="true"/>-->
-
     <param name="user_email" type="text" hidden="true"/>
     <param name="folder" type="select" label="FTP Folder" dynamic_options="get_ftp_folders(__trans__ , __trans__.user.email )" help="FTP folder." hidden="true" />
     <param name="project" type="select" label="Project" dynamic_options="get_ftp_folders(__trans__ , __trans__.user.email)" help="Available projects." />
-    <param name="dataset" type="select" label="Dataset" dynamic_options="get_ftp_raw_file_folders(__trans__.user.email, project)" help="Available datasets for selected project." />
-
+    <param name="dataset" type="select" label="Dataset" dynamic_options="get_ftp_raw_file_folders(__trans__.user.email, project)" help="Available datasets for selected project 6r6r." />
     <param name="lib_name" type="text" value="" label="Library Name" hidden="true"/>
     <param name="lib_description" type="text" value="" label="Library Description" hidden="true"/>
     <param name="lib_synopsis" type="text" value="" label="Library Synopsis" hidden="true"/>
     <param name="permission_list" type="text" value="" label="Permissions" hidden="true"/>
   </inputs>
     <outputs>
-<data format="csv" name="quant_sas_output" type="data" label="Linked Library"/>
+      <data format="csv" name="quant_sas_output" type="data" label="Linked Library"/>
     </outputs>
-<code file="/home/galaxy/Galaxy/galaxy-dist/tools/kelleher_tools/tool_form_utils_new.py" />
+<code file="/var/galaxy_dev/galaxy/tools/kelleher_tools/tool_form_utils_new.py" />
   <tests>
     <test>
       <param name="input1">

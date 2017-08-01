@@ -1,0 +1,63 @@
+<tool id="project_simple_linked_library_generator" name="Create Linked Library" version="0.1.0">
+  <description>Create Linked Library from Project</description>
+<command interpreter="python">/var/galaxy_dev/galaxy/tools/kelleher_tools/internal_simple_linked_library.py "$project" "$dataset" "$lib_name" "$lib_description" "$lib_synopsis" "$permission_list" $__user_id__  $__user_email__</command> 
+  <inputs>
+    <param name="project" type="select" label="Project" refresh_on_change="True" dynamic_options="get_project_folders()" help="Available projects." />
+    <param name="dataset" type="select" label="Dataset" refresh_on_change="True" dynamic_options="get_raw_file_folders(project)" help="Available datasets for selected project.">
+        <sanitizer invalid_char="X">
+            <valid initial="string.letters,string.digits,string.printable"></valid>
+        </sanitizer>
+    </param>
+
+    <param name="lib_name" type="text" value="" label="Library Name" hidden="true"/>
+    <param name="lib_description" type="text" value="" label="Library Description" hidden="true"/>
+    <param name="lib_synopsis" type="text" value="" label="Library Synopsis" hidden="true"/>
+    <param name="permission_list" type="text" value="" label="Permissions" hidden="true"/>
+  </inputs>
+    <outputs>
+	<data format="csv" name="quant_sas_output" type="data" label="Create Linked Library"/>
+    </outputs>
+<code file="internal_tool_form_utils.py" />
+  <tests>
+    <test>
+      <param name="input1">
+        <collection type="list">
+          <element name="l11" value="simple_line.txt" />
+          <element name="l12" value="simple_line.txt" />
+        </collection>
+      </param>
+      <output_collection name="list_output" type="list">
+        <element name="l11">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l11\n$" />
+          </assert_contents>
+        </element>
+        <element name="l12">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l12\n$" />
+          </assert_contents>
+        </element>
+      </output_collection>
+    </test>
+  </tests>
+
+<help>
+**What it does**
+
+Creates a library from all the raw files in the user selected folder.      
+
+**Input**
+
+- Project
+- Dataset
+
+**Output**
+
+- Library containing links to dataset sample files                              
+
+  </help> 
+
+
+</tool>
+
+

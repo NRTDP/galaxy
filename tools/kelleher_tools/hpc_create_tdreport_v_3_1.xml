@@ -1,0 +1,194 @@
+<tool id="hpc_create_tdreport_v_3_1" name="Top Down Search v. 3.1" version="1.1.2">
+  <description>Search raw/mzML files on NU HPC</description>
+<!--<command interpreter="sh">hpc_create_tdreport.sh $input1 "$organism" '$regex' $tdreport_outfile $quant_sas_output $__new_file_path__ $__user_id__  $__user_email__ $input2 "$env_mode" "$res_mode" "$frag_type"</command>-->
+
+<!--<command interpreter="python">hpc_create_tdreport.py $input1 "$organism" '$regex' $tdreport_outfile $quant_sas_output $__new_file_path__ $__user_id__  $__user_email__ $input2 "$env_mode" "$res_mode" "$frag_type"</command>-->
+   <command interpreter="python">hpc_create_tdreport_v_3_1.py "$organism" "$psi_mod" '$regex' $tdreport_outfile $quant_sas_output $__new_file_path__ $__user_id__ $__user_email__ $input2 "$env_mode" "$res_mode" "$frag_type" "$parameters" $performFDR $input2 $performMSPF $error_tolerant_search $c_score_characterization_cutoff "$project" "$dataset" "$files"</command>
+<!--   <command interpreter="python">hpc_create_tdreport_v_1_1.py "$input1" "$organism" '$regex' $tdreport_outfile $quant_sas_output $__new_file_path__ $__user_id__ $__user_email__ $input2 "$env_mode" "$res_mode" "$frag_type" None $performFDR $input2</command>-->
+  <inputs>
+    <param name="user_email" type="text" hidden="true"/>
+    <param name="folder" type="select" label="FTP Folder" refresh_on_change="True" dynamic_options="get_ftp_folders(__trans__ , __trans__.user.email )" help="FTP folder." hidden="true" />
+    <param name="project" type="select" label="Project" refresh_on_change="True" dynamic_options="get_ftp_folders(__trans__ , __trans__.user.email)" help="Available projects." />
+    <param name="dataset" type="select" label="Dataset" refresh_on_change="True"  dynamic_options="get_ftp_raw_file_folders(__trans__.user.email, project)" help="Available datasets for selected project." />
+    <param name="files" type="select" label="Input Files" refresh_on_change="True" multiple="true" dynamic_options="get_ftp_raw_files(__trans__.user.email, project, dataset)" help="Available raw/mzML files for selected project and dataset." />
+<!--    <param name="files" type="select" label="Input Files" display="checkboxes" multiple="true" refresh_on_change="True" dynamic_options="get_ftp_raw_files(__trans__.user.email, project, dataset)" help="Available raw/mzML files for selected project and dataset." />-->
+    <param name="lib_name" type="text" value="" refresh_on_change="True" label="Library Name" hidden="true"/>
+    <param name="lib_description" type="text" value="" refresh_on_change="True" label="Library Description" hidden="true"/>
+    <param name="lib_synopsis" type="text" value="" refresh_on_change="True" label="Library Synopsis" hidden="true"/>
+    <param name="permission_list" type="text" value="" refresh_on_change="True" label="Permissions" hidden="true"/>
+
+<!--    <param name="input1" type="data_collection" collection_type="list" label="Input Dataset List" help="Input collection..."/>-->
+    <!--<param name="input1" type="data" label="mzML zip file" />-->
+<!--    <param name="input2" type="data_collection" collection_type="list" label="Input" help="Input collection???..."/>-->
+    <param name="parameters" type="data" label="Search Parameters File" optional="true"/>
+    <param format="txt" name="input2" type="data" multiple="true"  label="Job Id" />
+    <param name="organism" type="select" label="Organism">
+      <option value="taxon9913_reviewed_05_2016">Bos taurus (Bovine) : (Taxon 9913 - May 2016)</option>
+      <option value="taxon536056_reviewed_05_2016">Escherichia coli : (Taxon 536056 - May 2016)</option>
+      <option value="taxon9606_reviewed_04_2016">Homo sapiens (Human) : (Taxon 9606 - April 2016)</option>
+      <option value="pnnl">PNNL PNNL PNNL</option>
+      <option value="H_sapiens_Uniprot_SPROT_2015_10_14">H_sapiens_Uniprot_SPROT_2015_10_14</option>
+      <option value="taxon9606_reviewed_extra_simple_04_2016">BETA DO NOT USE FASTA BASED HUMAN</option>
+      <option value="taxon9606_reviewed_extra_simple_04_2016_first">BETA DO NOT USE FASTA BASED HUMAN FIRST</option>
+      <option value="taxon9606_reviewed_extra_simple_04_2016_second">BETA DO NOT USE FASTA BASED HUMAN SECOND</option>
+      <option value="taxon10090_reviewed_05_2016">Mus musculus (Mouse) : (Taxon 10090 - May 2016)</option>
+      <option value="taxon208964_reviewed_07_2016">Pseudomonas Aeruginosa : (Taxon 208964 - July 2016)</option>
+      <option value="taxon10116_reviewed_05_2016">Rattus norvegicus (Rat) : (Taxon 10116 - May 2016)</option>
+      <option value="taxon559292_reviewed_05_2016">Saccharomyces cerevisiae (Baker's yeast) : (Taxon 559292 - May 2016)</option>
+      <option value="PierceIntactProteinStandardMix_09_2016">Pierce Intact Protein Standard Mix : (September 2016)</option>
+      <option value="TopDownStandards">Top Down Standards</option>
+<!--      <option value="taxon9913_reviewed.db">Bos taurus (Bovine) : (Taxon 510516 - July 2014)</option>
+      <option value="taxon536056_reviewed.db">Escherichia coli : (Taxon 536056 - December 2015)</option>
+      <option value="taxon9606_reviewed_july_2016.db">Homo sapiens (Human) : (Taxon 9606 - July 2016)</option>
+      <option value="taxon9606_reviewed.db">Homo sapiens (Human) : (Taxon 9606 - May 2016)</option>
+      <option value="taxon9606_reviewed.db">Homo sapiens (Human) : (Taxon 9606 - May 2016)</option>
+      <option value="taxon10090_reviewed.db">Mus musculus (Mouse) : (Taxon 10090 - July 2014)</option>
+      <option value="taxon10116_reviewed.db">Rattus norvegicus (Rat) : (Taxon 10116 - May 2016)</option>
+      <option value="taxon559292_reviewed.db">Saccharomyces cerevisiae (Baker's yeast) : (Taxon 559292 - July 2014)</option>-->
+      <option value="TopDownStandards.db">Top Down Standards</option>
+<!--      <option value="MouseBrain.db">Custom Mouse Brain</option>-->
+    </param>
+    <param name="psi_mod" type="select" display="checkboxes" multiple="True" label="Apply these fixed modifications (only available for Code Set 2.1 which is BETA) ">
+            <option value="PSI-MOD:417">S-carboxamidoethyl-L-cysteine</option>
+            <option value="PSI-MOD:424">S-pyridylethyl-L-cysteine</option>
+            <option value="PSI-MOD:1060">S-carboxamidomethyl-L-cysteine</option>
+            <option value="PSI-MOD:622">cysteine mercaptoethanol</option>
+            <option value="PSI-MOD:798">half cystine</option>
+            <option value="PSI-MOD:719">L-methionine sulfoxide</option>
+            <option value="PSI-MOD256">L-methionine sulfone</option>
+    </param>
+<!--    <param name="performFDR" type="boolean" checked="true" truevalue="True" falsevalue="False" label="Perform FDR"/>
+    <param name="regex" type="boolean"  checked="false" truevalue="True" falsevalue="False"  label="Create SAS Input Sheet for Quant"/>-->
+    <param name="performMSPF" type="select" label="Perform MSPathfinder search" >
+        <option value="True">True</option>
+        <option value="False" selected="true">False</option>
+    </param>
+    <param name="performFDR" type="select" label="Perform FDR">
+      <option value="True" selected="true">True</option>
+      <option value="False">False</option>
+    </param>
+    <param name="regex" type="select" label="Create SAS Input Sheet for Quant">
+      <option value="True">True</option>
+      <option value="False" selected="true">False</option>
+    </param>
+    <param name="res_mode" type="select" label="Resolution">
+      <option value="hi_res">High Resolution</option>
+      <option value="med_res">Medium Resolution</option>
+      <option value="low_res">Low Resolution</option>
+<!--      <option value="2_ppm_frag_tol_all.pds">2 ppm Fragment Tolerance - High Resolution</option>
+      <option value="5_ppm_frag_tol_all.pds">5 ppm Fragment Tolerance - High Resolution</option>
+      <option value="2_2_Da_BM_Precursor_Tol.pds">2.2 Da BioMarker Precursor Tolerance - High Resolution</option>-->
+    </param>
+    <param name="frag_type" type="select" label="Fragmentation Type">
+      <option value="auto">Auto</option>
+      <option value="CID">CID</option>
+      <option value="ECD">ECD</option>
+      <option value="ETD">ETD</option>
+      <option value="EThcD">EThcD</option>
+      <option value="HCD">HCD</option>
+      <option value="IRMPD">IRMPD</option>
+      <option value="SID">SID</option>
+      <option value="UVPD">UVPD</option>
+    </param>
+    <param name="env_mode" type="select" label="Code Set">
+<!--      <option value="standard_2_0">Standard 2.0</option>
+      <option value="standard_2_1">Standard 2.1 - BETA NOT FOR PUBLICATIONS</option>-->
+      <option value="standard_3_0">Standard 3.0</option>
+<!--      <option value="standard_2_1_leah">Standard 2.1 - Leah Test</option>-->
+    </param>
+    <param name="error_tolerant_search" type="select" label="Include ProSight Error Tolerant Search" default="True">
+      <option value="True" selected="true">True</option>
+      <option value="False">False</option>
+    </param>
+    <param name="c_score_characterization_cutoff" type="select" label="Only report characterized proteoforms (C-Score >= 40)">
+      <option value="True" selected="true">True</option>
+      <option value="False">False</option>
+    </param>
+
+<!--    <conditional name="__job_resource">
+        <param name="__job_resource__select" type="select" label="Optional Advanced Parameters">
+            <option value="no">Use default parameters</option>
+            <option value="yes">Use advanced parameters</option>
+        </param>
+        <when value="no"></when>
+        <when value="yes">
+            <param name="performPSET" type="select" label="Perform ProSight error tolerant search">
+                <option value="True">True</option>
+                <option value="False">False</option>
+            </param>
+            <param name="performMSPF" type="select" label="Perform MSPathfinder search">
+                <option value="True">True</option>
+                <option value="False">False</option>
+            </param>
+            <param name="onlyFullyCharacterized" type="select" label="Only include fully characterized proteoforms (C-Score over 40) in tdReport">
+                <option value="True">True</option>
+                <option value="False">False</option>
+            </param>
+        </when>
+    </conditional>-->
+  </inputs>
+    <outputs>
+        <data format="tdReport" name="tdreport_outfile" type="data" label="Top Down Report"/>
+        <data format="csv" name="quant_sas_output" type="data" label="Quant SAS Input"/>
+    </outputs>
+<!--<code file="/var/galaxy_dev/galaxy/tools/kelleher_tools/tool_form_utils_new.py" />-->
+<code file="/var/galaxy_prod/galaxy/tools/kelleher_tools/tool_form_utils_new.py" />
+
+  <tests>
+    <test>
+      <param name="input1">
+        <collection type="list">
+          <element name="l11" value="simple_line.txt" />
+          <element name="l12" value="simple_line.txt" />
+        </collection>
+      </param>
+      <output_collection name="list_output" type="list">
+        <element name="l11">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l11\n$" />
+          </assert_contents>
+        </element>
+        <element name="l12">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l12\n$" />
+          </assert_contents>
+        </element>
+      </output_collection>
+    </test>
+  </tests>
+
+<help>
+**What it does**
+
+Searches a zip file containing mzML files and returns a tdReport
+
+**Input**
+
+- Dataset list 
+- Job id
+- Organism
+- Fixed Modifications (Code set 2.1 only)
+- Perform FDR (True or False)
+- Create SAS Input Sheet for Quant (True of False)
+- Resolution (high, medium or low)
+- Fragmentation Type
+- Code Set (2.1 is beta and should not be used for publications)
+
+**Output**
+
+- tdReport viewable in the Top Down Viewer http://proteinaceous-apps.azurewebsites.net/topdownviewer 
+- Quant SAS Input (if performing quant)
+
+**Help**
+- Please review the SOP for additional information about using this Galaxy instance
+- https://portal.nrtdp.northwestern.edu/static/External_TDPortal_Tutorial_SOP_04.pdf
+
+  </help>
+
+
+
+
+
+</tool>
+
+

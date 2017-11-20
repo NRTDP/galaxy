@@ -41,6 +41,11 @@ def main():
    # print("script_path")
    # print(script_path)
    # print("script_path")
+    
+#    print(sys.argv[6])
+#    print("python " + script_path + "hpc_echo_sysargv.py " + env_path + " " + regex + " " +  sys.argv[4] + " " + sys.argv[5] + " " + working_dir + " " + job_id + " " + user_email) 
+#    raise Exception('test error')
+
 	
     print("Create Metadata")
 #    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " " + working_dir + " " + sys.argv[9] + " " + user_email)
@@ -70,9 +75,25 @@ def main():
     if os.system("python " + script_path + "hpc_error_check.py " + working_dir + " PrepareError") != 0:
         raise Exception('Error occurred preparing files for search')
 
+    time.sleep(150)
+
     print("Run Searches")
-#    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " 1 " + sys.argv[2] + " " + working_dir + " " + job_id + " " + user_email)
+    print("Run Searches")
+    print("Run Searches")
+    print("Run Searches")
+    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " 1 " + sys.argv[2] + " " + working_dir + " " + job_id + " " + user_email)
+    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " 1 " + sys.argv[2] + " " + working_dir + " " + job_id + " " + user_email)
+    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " 1 " + sys.argv[2] + " " + working_dir + " " + job_id + " " + user_email)
+    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " 1 " + sys.argv[2] + " " + working_dir + " " + job_id + " " + user_email)
+    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " 1 " + sys.argv[2] + " " + working_dir + " " + job_id + " " + user_email)
+    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " 1 " + sys.argv[2] + " " + working_dir + " " + job_id + " " + user_email)
+    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " 1 " + sys.argv[2] + " " + working_dir + " " + job_id + " " + user_email)
     os.system("python " + script_path + "hpc_queue_array.py " + env_path + " 1 " + sys.argv[2] + " " + working_dir + " " + job_id + " " + user_email)
+    print("Run Searches")
+    print("Run Searches")
+    print("Run Searches")
+    print("Run Searches")
+    print("Run Searches")
 
     if os.system("python " + script_path + "hpc_error_check.py " + working_dir + " SearchError") != 0:
         raise Exception('Error occurred searching files')

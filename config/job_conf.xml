@@ -88,6 +88,7 @@
 <!--	<tool id="win_generate_sas_report" destination="pulsar_pce_galaxy_crawler" />-->
 	<tool id="pce_galaxy_sic_norm" destination="pulsar_pce_galaxy_crawler" />
 	<tool id="pce_galaxy_convert_raw_to_mzml" destination="pulsar_pce_galaxy_crawler" />
+	<tool id="pce_galaxy_convert_raw_to_mzml_v_1_1" destination="pulsar_pce_galaxy_crawler" />
 
 
 
@@ -107,6 +108,13 @@
 <!--	<tool id="generate_search_report" destination="pulsar_quest" /> -->
 
         <tool id="hpc_create_tdreport_v_1_1" destination="pulsar_qgalaxy01" />
+        <tool id="hpc_create_tdreport_v_2_1" destination="pulsar_qgalaxy01" />
+        <tool id="hpc_create_tdreport_v_3_1" destination="pulsar_qgalaxy01" />
+        <tool id="hpc_advanced_create_tdreport_v_1_0" destination="pulsar_qgalaxy01" />
+        <tool id="hpc_advanced_create_tdreport_v_1_1" destination="pulsar_qgalaxy01" />
+        <tool id="hpc_advanced_create_tdreport_v_2_1" destination="pulsar_qgalaxy01" />
+        <tool id="hpc_advanced_create_tdreport_v_3_1" destination="pulsar_qgalaxy01" />
+
 
 	<tool id="hpc_shortreed" destination="pulsar_qgalaxy01" />
 
@@ -128,7 +136,7 @@
 	<tool id="hpc_caroline_create_tdreport" destination="pulsar_qgalaxy01" />
 
 
-        <tool id="hpc_advanced_create_tdreport_v_1_1" destination="pulsar_qgalaxy01" />
+        <tool id="hpc_msn_v_1_1" destination="pulsar_qgalaxy01" />
 
 
 	<tool id="hpc_inchlib_heatmap" destination="pulsar_qgalaxy01" />

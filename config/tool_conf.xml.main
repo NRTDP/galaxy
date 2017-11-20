@@ -1,21 +1,25 @@
 <?xml version='1.0' encoding='utf-8'?>
 <toolbox monitor="true">
-<section name="NRTDP Tools" id="analyze_data">
-        <tool file="kelleher_tools/internal_simple_linked_library.xml" />
-        <tool file="kelleher_tools/simple_linked_library_new.xml" />
-        <tool file="kelleher_tools/pce_galaxy_convert_raw_to_mzml.xml" />
+<section name="NRTDP Search Tools" id="analyze_data">
+        <tool file="kelleher_tools/pce_galaxy_convert_raw_to_mzml_v_1_1.xml" />
         <tool file="kelleher_tools/hpc_create_tdreport.xml" />
-        <tool file="kelleher_tools/hpc_create_tdreport_v_1_1.xml" />
+        <tool file="kelleher_tools/hpc_create_tdreport_v_2_1.xml" />
+        <tool file="kelleher_tools/hpc_create_tdreport_v_3_1.xml" />
         <tool file="kelleher_tools/hpc_advanced_create_tdreport_v_1_0.xml" />
-        <tool file="kelleher_tools/hpc_advanced_create_tdreport_v_1_1.xml" />
+        <tool file="kelleher_tools/hpc_advanced_create_tdreport_v_2_1.xml" />
+        <tool file="kelleher_tools/hpc_advanced_create_tdreport_v_3_1.xml" />
+</section>
+
+<section name="NRTDP General Tools" id="misc_nrtdp_tools">
         <tool file="kelleher_tools/generateJobId.xml" />
         <tool file="kelleher_tools/pce_galaxy_sic_norm.xml" />
+        <tool file="kelleher_tools/hpc_msn_v_1_1.xml" />
         <tool file="kelleher_tools/hpc_inchlib_heatmap.xml" />
  </section>
 
   <section id="getext" name="Get Data">
     <tool file="data_source/upload.xml" />
-    <tool file="data_source/ucsc_tablebrowser.xml" />
+<!--    <tool file="data_source/ucsc_tablebrowser.xml" />
     <tool file="data_source/ucsc_tablebrowser_test.xml" />
     <tool file="data_source/ucsc_tablebrowser_archaea.xml" />
     <tool file="data_source/ebi_sra.xml" />
@@ -38,9 +42,9 @@
     <tool file="data_source/eupathdb.xml" />
     <tool file="data_source/hbvar.xml" />
     <tool file="genomespace/genomespace_file_browser_prod.xml" />
-    <tool file="genomespace/genomespace_importer.xml" />
+    <tool file="genomespace/genomespace_importer.xml" />-->
   </section>
-  <section id="send" name="Send Data">
+<!--  <section id="send" name="Send Data">
     <tool file="genomespace/genomespace_exporter.xml" />
   </section>
   <section id="collection_operations" name="Collection Operations">
@@ -131,5 +135,5 @@
     <tool file="plotting/bar_chart.xml" />
     <tool file="plotting/boxplot.xml" />
     <tool file="maf/vcf_to_maf_customtrack.xml" />
-  </section>
+  </section>-->
 </toolbox>

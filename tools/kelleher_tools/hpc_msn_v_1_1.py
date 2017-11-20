@@ -9,6 +9,23 @@ def main():
 
     script_path = "/share/PCEitAdmin/Galaxy/code_sets/standard_3_0/scripts/";
 
+    if "FTP" in sys.argv[20]:
+        if "old" in sys.argv[20]:
+            dataset_folder = "/share/PCEitAdmin/Galaxy/external_users/" + sys.argv[20].split()[1] + "/" + sys.argv[21]
+            for file in sys.argv[22].split(','):
+                copyfile(dataset_folder + "/" + file, inputs_dir + "/" + file)
+                print(dataset_folder + "/" + file)
+        if "new" in sys.argv[20]:
+            dataset_folder = "/share/NU-PCEDATA/external_users/" + sys.argv[20].split()[1] + "/" + sys.argv[21]
+            for file in sys.argv[22].split(','):
+                copyfile(dataset_folder + "/" + file, inputs_dir + "/" + file)
+                print(dataset_folder + "/" + file)
+    else:
+        dataset_folder = "/share/krgData/Projects/" + sys.argv[20] + "/" +  sys.argv[21] + "/Samples"
+        for file in sys.argv[22].split(','):
+            copyfile(dataset_folder + "/" + file, inputs_dir + "/" + file)
+
+
 
     os.system("python " + script_path + "hpc_msn_prepare.py")
 

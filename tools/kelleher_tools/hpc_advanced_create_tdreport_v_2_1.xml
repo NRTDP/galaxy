@@ -1,0 +1,84 @@
+<tool id="hpc_advanced_create_tdreport_v_2_1" name="Advanced Top Down Search v. 2.1" version="1.1.1">
+  <description>Search raw files on Quest with standard database</description>
+   <command interpreter="python">hpc_advanced_create_tdreport_v_1_1.py "$input1" "$organism" '$regex' $tdreport_outfile $quant_sas_output $__new_file_path__ $__user_id__  $__user_email__ $input2 "$env_mode" "$res_mode" "$frag_type" "$parameters" $performFDR  $input2</command>
+  <inputs>
+    <param name="input1" type="data_collection" collection_type="list" label="Input Dataset List" help="Input collection..."/>
+    <param format="txt" name="input2" type="data" multiple="true"  label="Job Id" />
+    <param format="txt" name="parameters" type="data" multiple="true"  label="Search Parameters File" optional="true" />
+    <param name="organism" type="data" multiple="true" label="Database Flatfile" />
+    <param name="performFDR" type="boolean" checked="true" truevalue="True" falsevalue="False" label="Perform FDR"/>
+    <param name="regex" type="boolean" truevalue="True" falsevalue="False" label="Create SAS Input Sheet for Quant"/>
+    <param name="res_mode" type="select" label="Resolution">
+      <option value="hi_res_default_search_tree.pds">High Resolution</option>
+      <option value="med_res_default_search_tree.pds">Medium Resolution</option>
+      <option value="low_res_default_search_tree.pds">Low Resolution</option>
+    </param>
+    <param name="frag_type" type="select" label="Fragmentation Type">
+      <option value="auto">Auto</option>
+      <option value="hi_res_uvpd_default_search_tree.pds">UVPD</option>
+    </param>
+    <param name="env_mode" type="select" label="Code Set">
+      <option value="standard_2_0">Standard 2.0</option>
+      <option value="standard_2_1">Standard 2.1</option>
+    </param>
+  </inputs>
+    <outputs>
+        <data format="tdReport" name="tdreport_outfile" type="data" label="Top Down Report"/>
+        <data format="csv" name="quant_sas_output" type="data" label="Quant SAS Input"/>
+    </outputs>
+  <tests>
+    <test>
+      <param name="input1">
+        <collection type="list">
+          <element name="l11" value="simple_line.txt" />
+          <element name="l12" value="simple_line.txt" />
+        </collection>
+      </param>
+      <output_collection name="list_output" type="list">
+        <element name="l11">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l11\n$" />
+          </assert_contents>
+        </element>
+        <element name="l12">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l12\n$" />
+          </assert_contents>
+        </element>
+      </output_collection>
+    </test>
+  </tests>
+
+<help>
+**What it does**
+
+Searches a zip file containing mzML files and returns a tdReport
+
+**Input**
+
+- Zip file contiaing mzML files
+- Workflow id
+- Organism
+- Regex (if performing quant)
+- Resolution (high, medium or low)
+- Build version (Production is default)
+
+**Output**
+
+- tdReport viewable in the Top Down Viewer http://proteinaceous-apps.azurewebsites.net/topdownviewer 
+- Normalization Report (if performing quant)
+- Quant SAS Input (if performing quant)
+
+**Help**
+- Please review the SOP for additional information about using this Galaxy instance
+- http://galaxy-dev.kelleher.northwestern.edu/static/Galaxy_Quick_Start_Guide_20160224_v3_jbg.pdf
+
+  </help>
+
+
+
+
+
+</tool>
+
+

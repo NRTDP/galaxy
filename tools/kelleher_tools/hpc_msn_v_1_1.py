@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET, sys, subprocess, os, socket, getpass, time, os.path, time, shutil
 from subprocess import Popen, PIPE
+from shutil import copyfile
 
 
 def main():
@@ -8,6 +9,12 @@ def main():
 #    sys.exit("after history path")
 
     script_path = "/share/PCEitAdmin/Galaxy/code_sets/standard_3_0/scripts/";
+
+
+    base_dir = os.path.dirname(os.getcwd())
+    inputs_dir = base_dir + "/inputs/"
+    print("inputs")
+    print(inputs_dir)
 
     if "FTP" in sys.argv[20]:
         if "old" in sys.argv[20]:
@@ -22,6 +29,7 @@ def main():
                 print(dataset_folder + "/" + file)
     else:
         dataset_folder = "/share/krgData/Projects/" + sys.argv[20] + "/" +  sys.argv[21] + "/Samples"
+        results_folder = '"/share/krgData/Projects/' + sys.argv[20] + '/' +  sys.argv[21] + '/Results"'
         for file in sys.argv[22].split(','):
             copyfile(dataset_folder + "/" + file, inputs_dir + "/" + file)
 
@@ -54,8 +62,11 @@ def main():
     os.system("python " + set_parameter_path + " " + parameters_file + " " + "ExcludeSingletonsFromNetwork" + " " + sys.argv[14])
 
     print("BEFORE")
-    os.system("python " + script_path + "hpc_echo_sysargv.py"  + " " + sys.argv[15] + " " + sys.argv[16] + " " + sys.argv[17] + " " + sys.argv[18] + " " + sys.argv[19])
-    os.system("python " + script_path + "hpc_msn_queue_array.py" + " " + sys.argv[15] + " " + sys.argv[16] + " " + sys.argv[17] + " " + sys.argv[18] + " " + sys.argv[19])
+#    os.system("python " + script_path + "hpc_echo_sysargv.py"  + " " + sys.argv[15] + " " + sys.argv[16] + " " + sys.argv[17] + " " + sys.argv[18] + " " + sys.argv[19])
+    #os.system("python " + script_path + "hpc_msn_queue_array.py" + " " + sys.argv[15] + " " + sys.argv[16] + " " + sys.argv[17] + " " + sys.argv[18] + " " + sys.argv[19])
+    os.system("python " + script_path + "hpc_echo_sysargv.py" + " " + sys.argv[15] + " " + sys.argv[16] + " " + sys.argv[17] + " " + sys.argv[18] + " " + sys.argv[19] + " " + "'" + results_folder + "'")
+    os.system("python " + script_path + "hpc_msn_queue_array.py" + " " + sys.argv[15] + " " + sys.argv[16] + " " + sys.argv[17] + " " + sys.argv[18] + " " + sys.argv[19] + " " + "'" + results_folder + "'")
+
     print("AFTER")
 
 #sys.argv[2]

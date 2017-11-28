@@ -96,15 +96,17 @@ def main():
             if line.startswith('Error:'):
                 sys.exit(line)
 
+    workflow_id_new = sys.argv[5].split('/')[5]
+
     print("Create Metadata")
-    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " " + working_dir + " " + sys.argv[10] + " " + user_email)
-    os.system("python " + script_path + "hpc_create_metadata.py " + env_path + " " + working_dir + " " + sys.argv[10] + " " + user_email)
+    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " " + working_dir + " " + workflow_id_new + " " + user_email)
+    os.system("python " + script_path + "hpc_create_metadata.py " + env_path + " " + working_dir + " " + workflow_id_new + " " + user_email)
     
     print("Start Monitor")
     #os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " " + working_dir + " " + job_id + " " + sys.argv[10] + " " + sys.argv[11])
 
-    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " " + working_dir + " " + job_id + " " + sys.argv[10] + " " + sys.argv[11])
-    running_procs = Popen("python " + script_path + "hpc_monitor.py " + env_path + " " + working_dir + " " + job_id + " " + sys.argv[10] + " " + sys.argv[11], shell=True)
+    os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " " + working_dir + " " + job_id + " " + workflow_id_new + " " + sys.argv[11])
+    running_procs = Popen("python " + script_path + "hpc_monitor.py " + env_path + " " + working_dir + " " + job_id + " " + workflow_id_new + " " + sys.argv[11], shell=True)
 
     print("Copy Database")
     os.system("python " + script_path + "hpc_echo_sysargv.py " + env_path + " " + sys.argv[2] + " " + working_dir + " " + job_id + " " + user_email + " " + input_pds + " " + sys.argv[2])

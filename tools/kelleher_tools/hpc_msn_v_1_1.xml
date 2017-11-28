@@ -1,6 +1,6 @@
 <tool id="hpc_msn_v_1_1" name="Mass Spectral Networking v. 1.1" version="1.0.0">
   <description></description>
-    <command interpreter="python">hpc_msn.py "None" "$score_threshold" "$max_subnetwork_size" "$spectral_count_threshold" "$k_max_difference" "$k_max_relative_difference" "$same_mass_cosine_cutoff" "$k_rt_min" "$k_rt_max" "$half_isolation_width" "$precursor_intensity_cutoff" "$max_percent_base_peak" "$k_ms2_tolerance" "$exclude_singletons_from_network" "$annotation_database" $xgmml_outfile $console_outfile $cyjs_outfile $zip_output $project $dataset $files</command>
+    <command interpreter="python">hpc_msn_v_1_1.py "None" "$score_threshold" "$max_subnetwork_size" "$spectral_count_threshold" "$k_max_difference" "$k_max_relative_difference" "$same_mass_cosine_cutoff" "$k_rt_min" "$k_rt_max" "$half_isolation_width" "$precursor_intensity_cutoff" "$max_percent_base_peak" "$k_ms2_tolerance" "$exclude_singletons_from_network" "$annotation_database" $xgmml_outfile $console_outfile $cyjs_outfile $zip_output "$project" "$dataset" "$files"</command>
   <inputs>
 
     <param name="user_email" type="text" hidden="true"/>
@@ -38,7 +38,7 @@
         <data name="zip_output" format="zip"  type="data" label="Output Files ZIP"/>
     </outputs>
 <!--<code file="/var/galaxy_dev/galaxy/tools/kelleher_tools/tool_form_utils_new.py" />-->
-<code file="/var/galaxy_prod/galaxy/tools/kelleher_tools/tool_form_utils_new.py" />
+<code file="/var/galaxy_github_prod/galaxy/tools/kelleher_tools/tool_form_utils_new_qa.py" />
 
   <tests>
     <test>

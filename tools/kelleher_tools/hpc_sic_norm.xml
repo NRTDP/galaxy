@@ -1,0 +1,68 @@
+<tool id="hpc_sic_norm_v_1_1" name="Sic Normalization v 1.1" version="1.1.0">
+  <description></description>
+    <command interpreter="python">hpc_sic_norm.py "None" "$input2" "$output1" "$output2" "$project" "$dataset" "$files"</command>
+  <inputs>
+    <param name="user_email" type="text" hidden="true"/>
+    <param name="folder" type="select" label="FTP Folder" refresh_on_change="True" dynamic_options="get_ftp_folders(__trans__ , __trans__.user.email )" help="FTP folder." hidden="true" />
+    <param name="project" type="select" label="Project" refresh_on_change="True" dynamic_options="get_ftp_folders(__trans__ , __trans__.user.email)" help="Available projects." />
+    <param name="dataset" type="select" label="Dataset" refresh_on_change="True"  dynamic_options="get_ftp_raw_file_folders(__trans__.user.email, project)" help="Available datasets for selected project." />
+    <param name="files" type="select" label="Input Files" refresh_on_change="True" multiple="true" dynamic_options="get_ftp_raw_files(__trans__.user.email, project, dataset)" help="Available raw/mzML files for selected project and dataset." />
+    <param name="lib_name" type="text" value="" refresh_on_change="True" label="Library Name" hidden="true"/>
+    <param name="lib_description" type="text" value="" refresh_on_change="True" label="Library Description" hidden="true"/>
+    <param name="lib_synopsis" type="text" value="" refresh_on_change="True" label="Library Synopsis" hidden="true"/>
+    <param name="permission_list" type="text" value="" refresh_on_change="True" label="Permissions" hidden="true"/>
+    <param name="input2" type="data" label="Target csv" />
+  </inputs>
+  <outputs>
+    <data format="csv" name="output1" type="csv" label="mz Raw Data"/>
+    <data format="csv" name="output2" type="csv" label="mz Normalized Data"/>
+    </outputs>
+<!--<code file="/var/galaxy_dev/galaxy/tools/kelleher_tools/tool_form_utils_new.py" />-->
+<code file="/var/galaxy_github_prod/galaxy/tools/kelleher_tools/tool_form_utils_new_qa.py" />
+
+  <tests>
+
+
+    <test>
+      <param name="input1">
+        <collection type="list">
+          <element name="l11" value="simple_line.txt" />
+          <element name="l12" value="simple_line.txt" />
+        </collection>
+      </param>
+      <output_collection name="list_output" type="list">
+        <element name="l11">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l11\n$" />
+          </assert_contents>
+        </element>
+        <element name="l12">
+          <assert_contents>
+            <has_text_matching expression="^identifier is l12\n$" />
+          </assert_contents>
+        </element>
+      </output_collection>
+    </test>
+  </tests>
+  <help>
+
+**What it does**
+
+Processes a dataset list of raw files
+
+**Input**
+
+- Dataset list of raw files
+- Input csv
+
+**Output**
+
+- mz raw sheet
+- mz normalized sheet
+
+  </help>
+
+
+</tool>
+
+

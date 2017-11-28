@@ -42,7 +42,7 @@
     <data name="list_output" type="data" label="mzML ZIP file">
     </data>
   </outputs>
-<code file="/var/galaxy_prod/galaxy/tools/kelleher_tools/tool_form_utils_new.py" />
+<code file="/var/galaxy_github_prod/galaxy/tools/kelleher_tools/tool_form_utils_new_qa.py" />
 
 <!--<code file="/var/galaxy_prod/galaxy/tools/kelleher_tools/tool_form_utils_new.py" />-->
   <tests>

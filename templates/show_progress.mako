@@ -21,7 +21,8 @@
     <body>
 <!--    <div id="content"><iframe width="100%" height="100%" frameborder="0" src="http://prosight-cluster.kelleher.northwestern.edu/testing/galaxy_status_new.php/?jobId=${job.command_line.split('dataset_')[-1].split('.')[0]}&name=${job.command_line.split(' ')[-1]}"/></div>-->
 <!--    <div id="content"><iframe width="100%" height="100%" frameborder="0" src="http://galaxy.kelleher.northwestern.edu/progress/?jobId=${job.command_line.split('dataset_')[-1].split('.')[0]}&name=${job.command_line.split(' ')[-1]}"/></div>-->
-    <div id="content"><iframe width="100%" height="100%" frameborder="0" src="https://portal.nrtdp.northwestern.edu/progress/?jobId=${job.command_line.split('dataset_')[-1].split('.')[0]}&name=${job.command_line.split(' ')[-1]}"/></div>
+<!--    <div id="content"><iframe width="100%" height="100%" frameborder="0" src="https://portal.nrtdp.northwestern.edu/progress/?jobId=${job.command_line.split('dataset_')[-1].split('.')[0]}&name=${job.command_line.split(' ')[-1]}"/></div>-->
+    <div id="content"><iframe width="100%" height="100%" frameborder="0" src="https://portal.nrtdp.northwestern.edu/progress/?jobId=${job.command_line.split('dataset_')[-1].split('.')[0] if "inputs" in job.command_line else job.command_line.split(' ')[8].split('/')[5]}"/></div>
     </body>
 </html>
 

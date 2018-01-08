@@ -3,6 +3,12 @@ from subprocess import Popen, PIPE
 from shutil import copyfile
 
 def main():
+#    workflow_id_new = sys.argv[5].split('/')[5]
+#    print(workflow_id_new)
+#    print("Start Monitor")
+#    sys.exit(workflow_id_new)
+
+
     shared_code_set_path = "/projects/b1035/shared/" + sys.argv[10];
     print(shared_code_set_path)
 
@@ -146,11 +152,10 @@ def main():
 #    sys.exit("after monitor")
 
 
-    if sys.argv[16] == "True":
-        print("I AM 17 AND I AM TRUE")
-        os.system("python " + script_path + "hpc_create_fasta.py " + code_set_path + " " + sys.argv[1])
+#    if sys.argv[16] == "True":
+#        print("I AM 17 AND I AM TRUE")
+#        os.system("python " + script_path + "hpc_create_fasta.py " + code_set_path + " " + sys.argv[1])
 
-   # sys.exit("after create fasta test")
 
 #    sys.exit(sys.argv[19])
 
@@ -163,6 +168,10 @@ def main():
     print("Copy Database")
     print("Copy Database")
     print("Copy Database")
+
+
+#    time.sleep(60)
+#    sys.exit("after create fasta test")
 
 
 #    sys.exit("after copy database")
@@ -257,24 +266,37 @@ def main():
     folderbase_path = working_dir + "FolderBase/";
     working_code_set_path = folderbase_path + sys.argv[10] + "/";
     working_script_path = working_code_set_path + "scripts/";
- 
+
+    workflow_id_new = sys.argv[5].split('/')[5]
+    print(workflow_id_new)
     print("Start Monitor")
-    os.system("python " + working_script_path + "hpc_echo_sysargv.py " + working_code_set_path + " " + working_dir + " " + job_id + " " + sys.argv[9] + " " + sys.argv[10])
-    running_procs = Popen("python " + working_script_path + "hpc_monitor.py " + shared_code_set_path + " " + working_dir + " " + job_id + " " + sys.argv[9] + " " + sys.argv[10], shell=True)
+#    sys.exit(workflow_id_new)
+ 
+
+#    os.system("python " + working_script_path + "hpc_echo_sysargv.py " + working_code_set_path + " " + working_dir + " " + job_id + " " + sys.argv[9] + " " + sys.argv[10])
+#    running_procs = Popen("python " + working_script_path + "hpc_monitor.py " + shared_code_set_path + " " + working_dir + " " + job_id + " " + sys.argv[9] + " " + sys.argv[10], shell=True)
+    print("Start Monitor")
+
+    print("python " + working_script_path + "hpc_echo_sysargv.py " + working_code_set_path + " " + working_dir + " " + job_id + " " + workflow_id_new + " " + sys.argv[10])
+    print("Start Monitor")
+
+    os.system("python " + working_script_path + "hpc_echo_sysargv.py " + working_code_set_path + " " + working_dir + " " + job_id + " " + workflow_id_new + " " + sys.argv[10])
+    running_procs = Popen("python " + working_script_path + "hpc_monitor.py " + shared_code_set_path + " " + working_dir + " " + job_id + " " + workflow_id_new + " " + sys.argv[10], shell=True)
 
 #    sys.exit(sys.argv[19])
 
     print("Run Searches")
     #os.system("python " + script_path + "hpc_echo_sysargv.py " + code_set_path + " 1 " + sys.argv[1] + " " + working_dir + " " + job_id + " " + user_email)
-    os.system("python " + working_script_path + "hpc_echo_sysargv.py " + working_code_set_path + " 1 " + sys.argv[1] + " " + working_dir + " " + job_id + " " + user_email + " " + sys.argv[16])
+    os.system("python " + working_script_path + "hpc_echo_sysargv.py " + working_code_set_path + " 1 " + sys.argv[1] + " " + working_dir + " " + job_id + " " + user_email + " " + sys.argv[16]  + " " + sys.argv[19] + " " + sys.argv[20])
+    print("python " + working_script_path + "hpc_echo_sysargv.py " + working_code_set_path + " 1 " + sys.argv[1] + " " + working_dir + " " + job_id + " " + user_email + " " + sys.argv[16]  + " " + sys.argv[19].replace(" ", "") + " " + sys.argv[20].replace(" ", ""))
 
 #    time.sleep(50)
 #    sys.exit("after print run database")
 
     if includes_params_file:
-        os.system("python " + working_script_path + "hpc_queue_multiple_array.py " + working_code_set_path + " 1 " + sys.argv[1] + " " + working_dir + " " + job_id + " " + user_email + " " + parameters + " " + sys.argv[16])
+        os.system("python " + working_script_path + "hpc_queue_multiple_array.py " + working_code_set_path + " 1 " + sys.argv[1] + " " + working_dir + " " + job_id + " " + user_email + " " + parameters + " " + sys.argv[16] + " " + sys.argv[19].replace(" ", "") + " " + sys.argv[20].replace(" ", ""))
     else:
-        os.system("python " + working_script_path + "hpc_queue_multiple_array.py " + working_code_set_path + " 1 " + sys.argv[1] + " " + working_dir + " " + job_id + " " + user_email + " " + sys.argv[16])
+        os.system("python " + working_script_path + "hpc_queue_multiple_array.py " + working_code_set_path + " 1 " + sys.argv[1] + " " + working_dir + " " + job_id + " " + user_email + " " + sys.argv[16] + " " + sys.argv[19].replace(" ", "") + " " + sys.argv[20].replace(" ", ""))
 
     print(os.system("python " + script_path + "hpc_error_check.py " + working_dir))
 
@@ -285,11 +307,13 @@ def main():
 #    sys.exit("AFTER QUEUE ARRAY")
 
     print("Generate TdReport")
-    os.system("python " + script_path + "hpc_echo_sysargv.py " + code_set_path + " none " + sys.argv[4] + " " + working_dir + " " + job_id + " " + user_email)
+    os.system("python " + script_path + "hpc_echo_sysargv.py " + working_code_set_path + " none " + sys.argv[4] + " " + working_dir + " " + job_id + " " + user_email)
     if includes_params_file:
-        os.system("python " + script_path + "hpc_queue_generate_reports.py " + code_set_path + " none  " + sys.argv[4] + " " + working_dir + " " + job_id + " " + user_email + " " + parameters)
+        os.system("python " + script_path + "hpc_queue_generate_reports.py " + working_code_set_path + " none  " + sys.argv[4] + " " + working_dir + " " + job_id + " " + user_email + " " + parameters)
+#        os.system("python " + script_path + "hpc_generate_reports.py " + working_code_set_path + " none  " + sys.argv[4] + " " + working_dir + " " + job_id + " " + user_email + " " + parameters)
     else:
-        os.system("python " + script_path + "hpc_queue_generate_reports.py " + code_set_path + " none  " + sys.argv[4] + " " + working_dir + " " + job_id + " " + user_email)
+        os.system("python " + script_path + "hpc_queue_generate_reports.py " + working_code_set_path + " none  " + sys.argv[4] + " " + working_dir + " " + job_id + " " + user_email)
+#        os.system("python " + script_path + "hpc_generate_reports.py " + working_code_set_path + " none  " + sys.argv[4] + " " + working_dir + " " + job_id + " " + user_email)
 
     print(os.system("python " + script_path + "hpc_error_check.py " + working_dir))
 

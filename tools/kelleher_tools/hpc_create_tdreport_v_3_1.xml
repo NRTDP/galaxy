@@ -3,7 +3,7 @@
 <!--<command interpreter="sh">hpc_create_tdreport.sh $input1 "$organism" '$regex' $tdreport_outfile $quant_sas_output $__new_file_path__ $__user_id__  $__user_email__ $input2 "$env_mode" "$res_mode" "$frag_type"</command>-->
 
 <!--<command interpreter="python">hpc_create_tdreport.py $input1 "$organism" '$regex' $tdreport_outfile $quant_sas_output $__new_file_path__ $__user_id__  $__user_email__ $input2 "$env_mode" "$res_mode" "$frag_type"</command>-->
-   <command interpreter="python">hpc_create_tdreport_v_3_1.py "$organism" "$psi_mod" '$regex' $tdreport_outfile $quant_sas_output $__new_file_path__ $__user_id__ $__user_email__ $input2 "$env_mode" "$res_mode" "$frag_type" "$parameters" $performFDR $input2 $performMSPF $error_tolerant_search $c_score_characterization_cutoff "$project" "$dataset" "$files"</command>
+   <command interpreter="python">hpc_create_tdreport_v_3_1.py "$organism" "$psi_mod" '$regex' $tdreport_outfile $quant_sas_output $__new_file_path__ $__user_id__ $__user_email__ "None" "$env_mode" "$res_mode" "$frag_type" "None" $performFDR "None" $performMSPF $error_tolerant_search $c_score_characterization_cutoff "$project" "$dataset" "$files"</command>
 <!--   <command interpreter="python">hpc_create_tdreport_v_1_1.py "$input1" "$organism" '$regex' $tdreport_outfile $quant_sas_output $__new_file_path__ $__user_id__ $__user_email__ $input2 "$env_mode" "$res_mode" "$frag_type" None $performFDR $input2</command>-->
   <inputs>
     <param name="user_email" type="text" hidden="true"/>
@@ -20,17 +20,17 @@
 <!--    <param name="input1" type="data_collection" collection_type="list" label="Input Dataset List" help="Input collection..."/>-->
     <!--<param name="input1" type="data" label="mzML zip file" />-->
 <!--    <param name="input2" type="data_collection" collection_type="list" label="Input" help="Input collection???..."/>-->
-    <param name="parameters" type="data" label="Search Parameters File" optional="true"/>
-    <param format="txt" name="input2" type="data" multiple="true"  label="Job Id" />
+<!--    <param name="parameters" type="data" label="Search Parameters File" optional="true"/>-->
+<!--    <param format="txt" name="input2" type="data" multiple="true"  label="Job Id" />-->
     <param name="organism" type="select" label="Organism">
       <option value="taxon9913_reviewed_05_2016">Bos taurus (Bovine) : (Taxon 9913 - May 2016)</option>
       <option value="taxon536056_reviewed_05_2016">Escherichia coli : (Taxon 536056 - May 2016)</option>
       <option value="taxon9606_reviewed_04_2016">Homo sapiens (Human) : (Taxon 9606 - April 2016)</option>
-      <option value="pnnl">PNNL PNNL PNNL</option>
+<!--      <option value="pnnl">PNNL PNNL PNNL</option>
       <option value="H_sapiens_Uniprot_SPROT_2015_10_14">H_sapiens_Uniprot_SPROT_2015_10_14</option>
       <option value="taxon9606_reviewed_extra_simple_04_2016">BETA DO NOT USE FASTA BASED HUMAN</option>
       <option value="taxon9606_reviewed_extra_simple_04_2016_first">BETA DO NOT USE FASTA BASED HUMAN FIRST</option>
-      <option value="taxon9606_reviewed_extra_simple_04_2016_second">BETA DO NOT USE FASTA BASED HUMAN SECOND</option>
+      <option value="taxon9606_reviewed_extra_simple_04_2016_second">BETA DO NOT USE FASTA BASED HUMAN SECOND</option>-->
       <option value="taxon10090_reviewed_05_2016">Mus musculus (Mouse) : (Taxon 10090 - May 2016)</option>
       <option value="taxon208964_reviewed_07_2016">Pseudomonas Aeruginosa : (Taxon 208964 - July 2016)</option>
       <option value="taxon10116_reviewed_05_2016">Rattus norvegicus (Rat) : (Taxon 10116 - May 2016)</option>
@@ -44,9 +44,9 @@
       <option value="taxon9606_reviewed.db">Homo sapiens (Human) : (Taxon 9606 - May 2016)</option>
       <option value="taxon10090_reviewed.db">Mus musculus (Mouse) : (Taxon 10090 - July 2014)</option>
       <option value="taxon10116_reviewed.db">Rattus norvegicus (Rat) : (Taxon 10116 - May 2016)</option>
-      <option value="taxon559292_reviewed.db">Saccharomyces cerevisiae (Baker's yeast) : (Taxon 559292 - July 2014)</option>-->
+      <option value="taxon559292_reviewed.db">Saccharomyces cerevisiae (Baker's yeast) : (Taxon 559292 - July 2014)</option>
       <option value="TopDownStandards.db">Top Down Standards</option>
-<!--      <option value="MouseBrain.db">Custom Mouse Brain</option>-->
+      <option value="MouseBrain.db">Custom Mouse Brain</option>-->
     </param>
     <param name="psi_mod" type="select" display="checkboxes" multiple="True" label="Apply these fixed modifications (only available for Code Set 2.1 which is BETA) ">
             <option value="PSI-MOD:417">S-carboxamidoethyl-L-cysteine</option>
@@ -132,7 +132,7 @@
         <data format="csv" name="quant_sas_output" type="data" label="Quant SAS Input"/>
     </outputs>
 <!--<code file="/var/galaxy_dev/galaxy/tools/kelleher_tools/tool_form_utils_new.py" />-->
-<code file="/var/galaxy_prod/galaxy/tools/kelleher_tools/tool_form_utils_new.py" />
+<code file="/var/galaxy_github_prod/galaxy/tools/kelleher_tools/tool_form_utils_new_qa.py" />
 
   <tests>
     <test>
